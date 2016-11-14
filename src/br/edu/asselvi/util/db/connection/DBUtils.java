@@ -1,5 +1,5 @@
 package br.edu.asselvi.util.db.connection;
 
-public class Connection {
+public class DBUtils {
 
 }
