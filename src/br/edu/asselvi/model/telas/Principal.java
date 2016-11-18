@@ -20,7 +20,7 @@ public class Principal {
 				Msg.erro("Opção escolhida não existe. Verifique!");							
 			} 
 			if(liOpcao == 1){
-				liOpcao = Integer.parseInt(Msg.pergunta("Cliente :"
+				liOpcaoCadastro = Integer.parseInt(Msg.pergunta("Escolha :"
 														+ "\n1 - Cliente"
 														+ "\n2 - Locação"
 														+ "\n3 - Reserva"
