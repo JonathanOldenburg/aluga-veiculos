@@ -1,4 +1,4 @@
-package br.edu.asselvi.model.bin;
+package br.edu.asselvi.model.bean;
 
 public class Veiculo {
 

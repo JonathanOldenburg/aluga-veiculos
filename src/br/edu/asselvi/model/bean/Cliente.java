@@ -1,4 +1,4 @@
-package br.edu.asselvi.model.bin;
+package br.edu.asselvi.model.bean;
 
 public class Cliente {
 
@@ -19,7 +19,7 @@ public class Cliente {
 	}
 
 	public Cliente() {
-		this("Sem nome", "Sem endereço", 0, 0);
+		this("Sem nome", "Sem endereï¿½o", 0, 0);
 	}
 
 	public void setNome(String nome) {
@@ -53,7 +53,7 @@ public class Cliente {
 	@Override
 	public String toString() {
 		return "Nome..........: " + getNome() 
-			 + "Endereço......: " + getEndereco() 
+			 + "Endereï¿½o......: " + getEndereco() 
 			 + "CPF...........: " + getCpf()
 			 + "Telefone......: " + getTelefone();
 	}

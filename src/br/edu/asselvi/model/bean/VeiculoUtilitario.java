@@ -1,4 +1,4 @@
-package br.edu.asselvi.model.bin;
+package br.edu.asselvi.model.bean;
 
 public class VeiculoUtilitario extends Veiculo{
 	
@@ -28,7 +28,7 @@ public class VeiculoUtilitario extends Veiculo{
 			 + "Ano...........: " + getAno()
 			 + "Cor...........: " + getCor()
 			 + "Diaria........: " + getDiaria()
-			 + "Carga Máxima..: " + getCargaMaxima();
+			 + "Carga Mï¿½xima..: " + getCargaMaxima();
 	}
 
 }
