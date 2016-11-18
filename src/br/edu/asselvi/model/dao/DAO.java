@@ -2,6 +2,8 @@ package br.edu.asselvi.model.dao;
 
 import java.util.List;
 
+import br.edu.asselvi.model.TesteBean;
+
 public abstract class DAO<E> {
 
     private static final String SELECT = "SELECT ";
@@ -13,7 +15,12 @@ public abstract class DAO<E> {
      * Retorna o nome da tabela que 
      * @return
      */
-    protected abstract String getTableName();
+    private String getTableName() {
+        if (this.getClass().isAnnotationPresent(Table.class)) {
+            
+        }
+        return null;
+    }
     
     /**
      * Retorna o nome dos campos da tabela em que a DAO representa.

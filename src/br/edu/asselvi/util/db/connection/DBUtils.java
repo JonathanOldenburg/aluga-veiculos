@@ -26,12 +26,13 @@ public class DBUtils {
     /**
      * Fecha a conexão com o banco de dados.
      */
-    public static void closeConnection() {
+    public static void closeConnection() throws DBException {
         try {
             if (conn != null)
                 conn.close();
             conn = null;
         } catch (Exception e) {
+            throw new DBException("Não foi possível fexar a conexão", e);
         }
     }
 
