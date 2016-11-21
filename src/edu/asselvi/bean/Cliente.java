@@ -5,8 +5,9 @@ public class Cliente {
 	private int id; // adicionado por Diogão dos algoritmos inteligentes e infaliveis
 	private String nome;
 	private String endereco;
+	private String email;
+	private String telefone;
 	private int cpf;
-	private int telefone;
 
 	public String getNome() {
 		return nome;
@@ -29,7 +30,7 @@ public class Cliente {
 	}
 
 	public Cliente() {
-		this("Sem nome", "Sem endereço", 0, 0); // ficou esse erro aq q eu n entendi
+		this("Sem nome", "Sem endereço", 0, null);
 	}
 
 	public void setNome(String nome) {
@@ -44,7 +45,15 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	public int getCpf() {
+	public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getCpf() {
 		return cpf;
 	}
 
@@ -52,18 +61,18 @@ public class Cliente {
 		this.cpf = cpf;
 	}
 
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
 	@Override
 	public String toString() {
 		return "Nome..........: " + getNome() 
-			 + "Endereï¿½o......: " + getEndereco() 
+			 + "Endereço......: " + getEndereco() 
 			 + "CPF...........: " + getCpf()
 			 + "Telefone......: " + getTelefone();
 	}
