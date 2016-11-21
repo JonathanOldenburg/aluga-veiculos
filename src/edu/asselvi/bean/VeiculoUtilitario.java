@@ -1,16 +1,16 @@
-package br.edu.asselvi.model.bean;
+package edu.asselvi.bean;
 
 public class VeiculoUtilitario extends Veiculo{
 	
 	private double cargaMaxima;
 
-	VeiculoUtilitario(String placa, String modelo, int ano, String cor, double diaria, double cargaMaxima) {
-		super(placa, modelo, ano, cor, diaria);
+	VeiculoUtilitario(int id, String placa, String modelo, int ano, String cor, double diaria, double cargaMaxima, boolean ativo) {
+		super(id, placa, modelo, ano, cor, diaria, ativo);
 		setCargaMaxima(cargaMaxima);
 	}
 
 	public VeiculoUtilitario() {
-		this("Sem placa", "Sem modelo", 0, "Sem cor", 0.0, 0.0);
+		this(0,"Sem placa", "Sem modelo", 0, "Sem cor", 0.0, 0.0, false);
 	}
 
 	public double getCargaMaxima() {

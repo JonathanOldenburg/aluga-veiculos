@@ -1,4 +1,4 @@
-package br.edu.asselvi.model.bean;
+package edu.asselvi.bean;
 
 public class Cliente {
 

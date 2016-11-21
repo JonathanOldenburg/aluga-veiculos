@@ -1,16 +1,16 @@
-package br.edu.asselvi.model.bean;
+package edu.asselvi.bean;
 
 public class VeiculoEsportivo extends Veiculo {
 
 	private double aceleracao;
 
-	VeiculoEsportivo(String placa, String modelo, int ano, String cor, double diaria, double aceleracao) {
-		super(placa, modelo, ano, cor, diaria);
+	VeiculoEsportivo(int id, String placa, String modelo, int ano, String cor, double diaria, double aceleracao, boolean ativo) {
+		super(id, placa, modelo, ano, cor, diaria, ativo);
 		setAceleracao(aceleracao);
 	}
 
 	public VeiculoEsportivo() {
-		this("Sem placa", "Sem modelo", 0, "Sem cor", 0.0, 0.0);
+		this(0,"Sem placa", "Sem modelo", 0, "Sem cor", 0.0, 0.0, false);
 	}
 
 	public double getAceleracao() {

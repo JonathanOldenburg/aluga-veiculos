@@ -1,31 +1,43 @@
-package br.edu.asselvi.model.bean;
+package edu.asselvi.bean;
 
 public class Veiculo {
 
+	private int id;
 	private String placa;
 	private String modelo;
 	private int ano;
 	private String cor;
 	private double diaria;
-	
-	public Veiculo(String placa, String modelo, int ano, String cor, double diaria){
+	private boolean ativo;
+
+	public Veiculo(int id, String placa, String modelo, int ano, String cor, double diaria, boolean ativo){
+		setId(id);
 		setPlaca(placa);
 		setModelo(modelo);
 		setAno(ano);
 		setCor(cor);
-		setDiaria(diaria);		
+		setDiaria(diaria);
+		
 	}
 	
 	public Veiculo(){
-		this("Sem placa", "Sem modelo", 0, "Sem cor", 0.0);
+		this(0,"ZZZ0000", "Sem modelo", 0, "Sem cor", 0.0, false);
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getPlaca() {
 		return placa;
 	}
 
 	public void setPlaca(String placa) {
-		this.placa = placa;
+		this.placa = placa.toUpperCase().substring(0,7);
 	}
 
 	public String getModelo() {
@@ -60,13 +72,22 @@ public class Veiculo {
 		this.diaria = diaria;
 	}
 	
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+	
 	@Override
 	public String toString() {
 		return "Placa.........: " + getPlaca() 
 			 + "Modelo........: " + getModelo() 
 			 + "Ano...........: " + getAno()
 			 + "Cor...........: " + getCor()
-			 + "Diaria........: " + getDiaria();
+			 + "Diaria........: " + getDiaria()
+			 + "Ativo.........: " +  (isAtivo() ? "S" : "N");
 	}
 
 }
