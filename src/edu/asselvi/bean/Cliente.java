@@ -1,7 +1,8 @@
 package edu.asselvi.bean;
 
 public class Cliente {
-
+	
+	private int id; // adicionado por Diogão dos algoritmos inteligentes e infaliveis
 	private String nome;
 	private String endereco;
 	private int cpf;
@@ -11,15 +12,24 @@ public class Cliente {
 		return nome;
 	}
 
-	public Cliente(String nome, String endereco, int cpf, int telefone) {
+	public Cliente(int id, String nome, String endereco, int cpf, int telefone) {
+		setId(id);
 		setNome(nome);
 		setEndereco(endereco);
 		setCpf(cpf);
 		setTelefone(telefone);
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Cliente() {
-		this("Sem nome", "Sem endereï¿½o", 0, 0);
+		this("Sem nome", "Sem endereço", 0, 0); // ficou esse erro aq q eu n entendi
 	}
 
 	public void setNome(String nome) {
