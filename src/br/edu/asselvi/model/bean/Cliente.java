@@ -1,17 +1,25 @@
 package br.edu.asselvi.model.bean;
 
-public class Cliente {
+import java.io.Serializable;
 
-	private String nome;
+import br.edu.asselvi.model.dao.Table;
+
+@Table("Cliente")
+public class Cliente implements Serializable {
+
+    private static final long serialVersionUID = -4577643057771096091L;
+    
+    private String nome;
 	private String endereco;
+	private String email;
+	private String telefone;
 	private int cpf;
-	private int telefone;
 
 	public String getNome() {
 		return nome;
 	}
 
-	public Cliente(String nome, String endereco, int cpf, int telefone) {
+	public Cliente(String nome, String endereco, int cpf, String telefone) {
 		setNome(nome);
 		setEndereco(endereco);
 		setCpf(cpf);
@@ -19,7 +27,7 @@ public class Cliente {
 	}
 
 	public Cliente() {
-		this("Sem nome", "Sem endere�o", 0, 0);
+		this("Sem nome", "Sem endereço", 0, null);
 	}
 
 	public void setNome(String nome) {
@@ -34,7 +42,15 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	public int getCpf() {
+	public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getCpf() {
 		return cpf;
 	}
 
@@ -42,18 +58,18 @@ public class Cliente {
 		this.cpf = cpf;
 	}
 
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
 	@Override
 	public String toString() {
 		return "Nome..........: " + getNome() 
-			 + "Endere�o......: " + getEndereco() 
+			 + "Endereço......: " + getEndereco() 
 			 + "CPF...........: " + getCpf()
 			 + "Telefone......: " + getTelefone();
 	}
