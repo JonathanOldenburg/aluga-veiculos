@@ -7,18 +7,28 @@ public class Reserva {
 
 	private Date inicio;
 	private Date fim;
-	private String cliente;
+	private int id_Cliente;
+	//private String cliente;             ???????   se tiver certo tem que atualizar o reservaDAO
+	private int id_Carro;
 	private boolean reservou;
 
-	Reserva(int id, Date inicio, Date fim, String cliente, boolean reservou) {
+	Reserva(int id, Date inicio, Date fim,int id_Cliente, boolean reservou) {
 		setInicio(inicio);
 		setFim(fim);
-		setCliente(cliente);
+		setId_Cliente(id_Cliente);
 		setReservou(reservou);
 	}
 
+	public int getId_Cliente() {
+		return id_Cliente;
+	}
+
+	public void setId_Cliente(int id_Cliente) {
+		this.id_Cliente = id_Cliente;
+	}
+
 	Reserva() {
-		this(0, new Date(), new Date(), "Sem cliente", false);
+		this(0, new Date(), new Date(), 0, false);
 	}
 
 	public int getId() {
@@ -44,15 +54,7 @@ public class Reserva {
 	public void setFim(Date fim) {
 		fim = fim;
 	}
-
-	public String getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(String cliente) {
-		this.cliente = cliente;
-	}
-
+	
 	public boolean isReservou() {
 		return reservou;
 	}
@@ -60,10 +62,19 @@ public class Reserva {
 	public void setReservou(boolean reservou) {
 		this.reservou = reservou;
 	}
+	
+	public int getId_Carro() {
+		return id_Carro;
+	}
 
+	public void setId_Carro(int id_Carro) {
+		this.id_Carro = id_Carro;
+	}
+	
 	@Override
 	public String toString() {
-		return "Inicio........: " + getInicio() + "Fim...........: " + getFim() + "Cliente.......: " + getCliente()
+		return "Inicio........: " + getInicio() + "Fim...........: " + getFim() //+ "Cliente.......: " + getCliente() como vai ficar esse cliente aq
+		
 				+ "Reservou......: " + isReservou();
 	}
 

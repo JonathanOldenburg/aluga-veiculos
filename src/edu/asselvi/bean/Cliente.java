@@ -2,7 +2,7 @@ package edu.asselvi.bean;
 
 public class Cliente {
 	
-	private int id; // adicionado por Diogão dos algoritmos inteligentes e infaliveis
+	private int id; 
 	private String nome;
 	private String endereco;
 	private String email;
@@ -19,7 +19,7 @@ public class Cliente {
 	}
 	
 	public Cliente(){
-		this(0,"Sem nome", "Sem endereço", 0, ""); // ficou esse erro aq q eu n entendi
+		this(0,"Sem nome", "Sem endereço", 0, ""); 
 	}
 
 
