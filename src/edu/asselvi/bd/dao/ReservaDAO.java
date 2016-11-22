@@ -13,7 +13,7 @@ import edu.asselvei.bd.EErrosBD;
 import edu.asselvei.bd.conexao.Conexao;
 import edu.asselvi.bean.Reserva;
 
-public class ReservaDAO {
+public class ReservaDAO implements IPadraoDAO{
 
 	@Override
 	public boolean criaTabela() throws BDException {
@@ -117,10 +117,10 @@ public class ReservaDAO {
 		}
 	}
 
-	public Reserva consulta(int id) throws BDException {
+	public Reserva consulta(int id, date inicio, date fim, int id_Cliente, int id_Carro, boolean reserva) throws BDException {
 		Connection conexao = Conexao.getConexao();
 		try {
-			PreparedStatement pst = conexao.prepareStatement("SELECT * FROM reserva WHERE id = ?;");
+			PreparedStatement pst = conexao.prepareStatement("SELECT * FROM reserva r, locacao l  WHERE id = ? and r.id_Cliente = l.id_Cliente;");
 			pst.setInt(1, id);
 			ResultSet rs = pst.executeQuery();
 			return rs.first() ? new Reserva(rs.getInt("id"),

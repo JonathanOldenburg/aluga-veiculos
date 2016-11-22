@@ -26,8 +26,10 @@ public class Principal {
 				switch(liOpcaoCadastro){
 				  case 1 : CadastraCliente.chamaCadastro();
 					  	   break;
-				  case 2 : break;
-				  case 3 : break;
+				  case 2 : CadastraLocacao.chamaCadastro();
+					       break;
+				  case 3 : CadastraReserva.chamaCadastro();
+					  	   break;
 				  case 4 : CadastraVeiculo.chamaCadastro(); 
 				  		   break;
 				  case 5 : CadastraCor.chamaCadastro();
@@ -41,13 +43,15 @@ public class Principal {
 											   + "\n4 - Veiculo"
 											   + "\n5 - Cor"));
 				switch(liOpcaoCadastro){
-				  case 1 : CadastraCliente.chamaCadastro();
+				  case 1 : ConsultaCliente.chamaConsulta();
 					  	   break;
-				  case 2 : break;
-				  case 3 : break;
+				  case 2 : ConsultaLocacao.chamaConsulta();
+					  	   break;
+				  case 3 : ConsultaReserva.chamaConsulta();
+					  	   break;
 				  case 4 : ConsultaVeiculos.ChamaConsulta(); 
 				  		   break;
-				  case 5 : CadastraCor.chamaCadastro();
+				  case 5 : ConsultaCor.chamaConsulta();
 				  		   break;
 				
 				}	

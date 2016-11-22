@@ -12,11 +12,16 @@ public class Reserva {
 	private int id_Carro;
 	private boolean reservou;
 
-	Reserva(int id, Date inicio, Date fim,int id_Cliente, boolean reservou) {
+	public Reserva(int id, Date inicio, Date fim,int id_Cliente, boolean reservou) {
+		setId(id);
 		setInicio(inicio);
 		setFim(fim);
 		setId_Cliente(id_Cliente);
 		setReservou(reservou);
+	}
+	
+	public Reserva() {
+		this(0, new Date(), new Date(), 0, false);
 	}
 
 	public int getId_Cliente() {
@@ -27,9 +32,6 @@ public class Reserva {
 		this.id_Cliente = id_Cliente;
 	}
 
-	Reserva() {
-		this(0, new Date(), new Date(), 0, false);
-	}
 
 	public int getId() {
 		return id;
