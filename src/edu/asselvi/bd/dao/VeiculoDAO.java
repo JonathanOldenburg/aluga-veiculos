@@ -27,7 +27,6 @@ public class VeiculoDAO implements IPadraoDAO {
 						" ID_COR INT(4) NOT NULL, "+
 						" DIARIA FLOAT NOT NULL, "+
 						" ATIVO VARCHAR(1) DEFAULT '0', " +
-						" PRIMARY KEY (ID) , "+
 						" INDEX FK_VEICULO_COR (ID_COR), " +											
 						" CONSTRAINT FK_VEICULO_COR FOREIGN KEY (ID_COR) REFERENCES cor (ID) " +
 						" );");
