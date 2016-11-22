@@ -20,7 +20,7 @@ public class VeiculoDAO implements IPadraoDAO {
 		try {
 			Statement st = conexao.createStatement();
 			st.execute( " CREATE TABLE VEICULO ( " +
-						" ID INT(10)  NOT NULL, " +
+						" ID INT(10)  NOT NULL PRIMARY KEY AUTO_INCREMENT, " +
 						" PLACA VARCHAR(7) NOT NULL, " +
 						" MODELO VARCHAR(100) NOT NULL, "+
 						" ANO INT(4) NOT NULL, "+

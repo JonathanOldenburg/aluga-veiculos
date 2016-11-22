@@ -20,7 +20,7 @@ public class ClienteDAO implements IPadraoDAO {
 		try {
 			Statement st = conexao.createStatement();
 			st.execute( " CREATE TABLE cliente ( " +
-						" ID INT(10) NOT NULL AUTO_INCREMENT, " +
+						" ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT, " +
 						" NOME VARCHAR(100) NOT NULL, " +
 						" ENDERECO VARCHAR(100) NOT NULL, "+
 						" CPF INT(11) NOT NULL, "+
