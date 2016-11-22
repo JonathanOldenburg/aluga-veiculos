@@ -58,7 +58,7 @@ public class ClienteDAO implements IPadraoDAO {
 			pst.setString(2, cliente.getNome());
 			pst.setString(3, cliente.getEndereco());
 			pst.setInt(4, cliente.getCpf());
-			pst.setInt(5, cliente.getTelefone());
+			pst.setString(5, cliente.getTelefone());
 			return pst.executeUpdate() > 0;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.INSERE_DADO);
@@ -76,7 +76,7 @@ public class ClienteDAO implements IPadraoDAO {
 				pst.setString(2, cliente.getNome());
 				pst.setString(3, cliente.getEndereco());
 				pst.setInt(4, cliente.getCpf());
-				pst.setInt(5, cliente.getTelefone());
+				pst.setString(5, cliente.getTelefone());
 				pst.executeUpdate();
 			}
 			return true;
@@ -97,7 +97,7 @@ public class ClienteDAO implements IPadraoDAO {
 				pst.setString(2, cliente.getNome());
 				pst.setString(3, cliente.getEndereco());
 				pst.setInt(4, cliente.getCpf());
-				pst.setInt(5, cliente.getTelefone());
+				pst.setString(5, cliente.getTelefone());
 				pst.executeUpdate();
 			}
 			conexao.commit();
@@ -124,7 +124,7 @@ public class ClienteDAO implements IPadraoDAO {
 											rs.getString("nome"),
 											rs.getString("endereco"),
 											rs.getInt("cpf"),
-											rs.getInt("telefone"))
+											rs.getString("telefone"))
 							: null;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.CONSULTA_DADO);
@@ -144,7 +144,7 @@ public class ClienteDAO implements IPadraoDAO {
 									   	 rs.getString("nome"),
 										 rs.getString("endereco"),
 										 rs.getInt("cpf"),
-										 rs.getInt("telefone")));
+										 rs.getString("telefone")));
 			}
 			return clientes;
 		} catch (Exception e) {
@@ -161,7 +161,7 @@ public class ClienteDAO implements IPadraoDAO {
 			pst.setString(1, cliente.getNome());
 			pst.setString(2, cliente.getEndereco());
 			pst.setInt(3, cliente.getCpf());
-			pst.setInt(4, cliente.getTelefone()); // "Arrumar" jonathan 2016
+			pst.setString(4, cliente.getTelefone()); // "Arrumar" jonathan 2016
 			return pst.executeUpdate() > 0;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.ATUALIZA_DADO);

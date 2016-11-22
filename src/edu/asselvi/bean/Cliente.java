@@ -6,9 +6,9 @@ public class Cliente {
 	private String nome;
 	private String endereco;
 	private int cpf;
-	private int telefone;
+	private String telefone;
 
-	public Cliente(int id, String nome, String endereco, int cpf, int telefone) {
+	public Cliente(int id, String nome, String endereco, int cpf, String telefone) {
 		setId(id);
 		setNome(nome);
 		setEndereco(endereco);
@@ -17,7 +17,7 @@ public class Cliente {
 	}
 	
 	public Cliente() {
-		this(0,"Sem nome", "Sem endereço", 0, 0); // ficou esse erro aq q eu n entendi
+		this(0,"Sem nome", "Sem endereço", 0, ""); // ficou esse erro aq q eu n entendi
 	}
 
 
@@ -53,11 +53,11 @@ public class Cliente {
 		this.cpf = cpf;
 	}
 
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
