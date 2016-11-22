@@ -24,7 +24,7 @@ public class ClienteDAO implements IPadraoDAO {
 						" NOME VARCHAR(100) NOT NULL, " +
 						" ENDERECO VARCHAR(100) NOT NULL, "+
 						" CPF INT(11) NOT NULL, "+
-						" TELEFONE INT(4) NOT NULL, "+
+						" TELEFONE VARCHAR(30) NOT NULL, "+
 						" DIARIA FLOAT NOT NULL, "+
 						" PRIMARY KEY (ID) "+
 						");");
