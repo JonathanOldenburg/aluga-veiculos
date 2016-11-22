@@ -3,9 +3,10 @@ package edu.asselvi.telas;
 import edu.asselvei.bd.BDException;
 import edu.asselvi.bd.dao.ClienteDAO;
 import edu.asselvi.bean.Cliente;
+import edu.asselvi.interfaces.IPadraoCadastra;
 import edu.asselvi.utils.Msg;
 
-public class CadastraCliente {
+public class CadastraCliente implements IPadraoCadastra {
 
 	public static void chamaCadastro() throws BDException {
 

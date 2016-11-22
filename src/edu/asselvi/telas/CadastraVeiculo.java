@@ -3,9 +3,10 @@ package edu.asselvi.telas;
 import edu.asselvei.bd.BDException;
 import edu.asselvi.bd.dao.VeiculoDAO;
 import edu.asselvi.bean.Veiculo;
+import edu.asselvi.interfaces.IPadraoCadastra;
 import edu.asselvi.utils.Msg;
 
-public class CadastraVeiculo {
+public class CadastraVeiculo implements IPadraoCadastra {
 
 	public static void chamaCadastro() throws BDException {
 

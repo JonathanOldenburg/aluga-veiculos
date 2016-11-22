@@ -3,8 +3,9 @@ package edu.asselvi.telas;
 import edu.asselvei.bd.BDException;
 import edu.asselvi.bd.dao.VeiculoDAO;
 import edu.asselvi.bean.Veiculo;
+import edu.asselvi.interfaces.IPadraoConsulta;
 
-public class ConsultaVeiculos {
+public class ConsultaVeiculos implements IPadraoConsulta {
 
 	public static void ChamaConsulta() throws BDException {
 		VeiculoDAO veiculoDAO = new VeiculoDAO();

@@ -3,14 +3,15 @@ package edu.asselvi.telas;
 import edu.asselvei.bd.BDException;
 import edu.asselvi.bd.dao.CorDAO;
 import edu.asselvi.bean.Cor;
+import edu.asselvi.interfaces.IPadraoCadastra;
 import edu.asselvi.utils.Msg;
 
-public class CadastraCor {
+public class CadastraCor implements IPadraoCadastra {
 
 	public static void chamaCadastro() throws BDException {
 
 		CorDAO corDAO = new CorDAO();
-		// clienteDAO.criaTabela();
+		// corDAO.criaTabela();
 		int liOpcao = Msg.perguntaInt("1 - Cadastro \n2 - Exclusão");
 		if (liOpcao == 1) {
 
