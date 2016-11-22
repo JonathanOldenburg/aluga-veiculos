@@ -20,7 +20,7 @@ public class CorDAO implements IPadraoDAO {
 		try {
 			Statement st = conexao.createStatement();
 			st.execute( " CREATE TABLE COR ( " +
-						" ID INT(10)  NOT NULL AUTO_INCREMENT, " +
+						" ID INT(10) NOT NULL PRIMARY KEY, " +
 						" DSC_COR VARCHAR(100) NOT NULL " +						
 						" );");
 			return true;

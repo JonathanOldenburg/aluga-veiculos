@@ -7,7 +7,7 @@ import edu.asselvi.utils.Msg;
 
 public class CadastraCliente {
 
-	public static void ChamaCadastro() throws BDException {
+	public static void chamaCadastro() throws BDException {
 
 		ClienteDAO clienteDAO = new ClienteDAO();
 		//clienteDAO.criaTabela();

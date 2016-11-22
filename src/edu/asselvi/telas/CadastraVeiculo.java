@@ -7,7 +7,7 @@ import edu.asselvi.utils.Msg;
 
 public class CadastraVeiculo {
 
-	public static void ChamaCadastro() throws BDException {
+	public static void chamaCadastro() throws BDException {
 
 		VeiculoDAO veiculoDAO = new VeiculoDAO();
 		//veiculoDAO.criaTabela();

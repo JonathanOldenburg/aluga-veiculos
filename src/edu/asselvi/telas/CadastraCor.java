@@ -7,7 +7,7 @@ import edu.asselvi.utils.Msg;
 
 public class CadastraCor {
 
-	public static void ChamaCadastro() throws BDException {
+	public static void chamaCadastro() throws BDException {
 
 		CorDAO corDAO = new CorDAO();
 		// clienteDAO.criaTabela();

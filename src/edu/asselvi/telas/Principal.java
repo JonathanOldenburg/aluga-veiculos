@@ -1,9 +1,5 @@
 package edu.asselvi.telas;
 
-import java.awt.TrayIcon.MessageType;
-
-import javax.swing.JOptionPane;
-
 import edu.asselvei.bd.BDException;
 import edu.asselvi.utils.Msg;
 
@@ -28,13 +24,13 @@ public class Principal {
 											   + "\n4 - Veiculo"
 											   + "\n5 - Cor"));
 				switch(liOpcaoCadastro){
-				  case 1 : CadastraCliente.ChamaCadastro();
+				  case 1 : CadastraCliente.chamaCadastro();
 					  	   break;
 				  case 2 : break;
 				  case 3 : break;
-				  case 4 : CadastraVeiculo.ChamaCadastro(); 
+				  case 4 : CadastraVeiculo.chamaCadastro(); 
 				  		   break;
-				  case 5 : CadastraCor.ChamaCadastro();
+				  case 5 : CadastraCor.chamaCadastro();
 				  		   break;
 				}
 			}else{
@@ -45,13 +41,13 @@ public class Principal {
 											   + "\n4 - Veiculo"
 											   + "\n5 - Cor"));
 				switch(liOpcaoCadastro){
-				  case 1 : CadastraCliente.ChamaCadastro();
+				  case 1 : CadastraCliente.chamaCadastro();
 					  	   break;
 				  case 2 : break;
 				  case 3 : break;
 				  case 4 : ConsultaVeiculos.ChamaConsulta(); 
 				  		   break;
-				  case 5 : CadastraCor.ChamaCadastro();
+				  case 5 : CadastraCor.chamaCadastro();
 				  		   break;
 				
 				}	
