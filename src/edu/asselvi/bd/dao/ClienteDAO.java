@@ -25,8 +25,7 @@ public class ClienteDAO implements IPadraoDAO {
 						" ENDERECO VARCHAR(100) NOT NULL, "+
 						" CPF INT(11) NOT NULL, "+
 						" TELEFONE VARCHAR(30) NOT NULL, "+
-						" DIARIA FLOAT NOT NULL, "+
-						" PRIMARY KEY (ID) "+
+						" DIARIA FLOAT NOT NULL "+
 						");");
 			return true;
 		} catch (Exception e) {
