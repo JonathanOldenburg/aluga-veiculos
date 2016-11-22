@@ -5,8 +5,10 @@ public class Cliente {
 	private int id; // adicionado por Diogão dos algoritmos inteligentes e infaliveis
 	private String nome;
 	private String endereco;
+	private String email;
 	private int cpf;
 	private String telefone;
+
 
 	public Cliente(int id, String nome, String endereco, int cpf, String telefone) {
 		setId(id);
@@ -16,7 +18,7 @@ public class Cliente {
 		setTelefone(telefone);
 	}
 	
-	public Cliente() {
+	public Cliente(){
 		this(0,"Sem nome", "Sem endereço", 0, ""); // ficou esse erro aq q eu n entendi
 	}
 
@@ -45,7 +47,15 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	public int getCpf() {
+	public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getCpf() {
 		return cpf;
 	}
 
@@ -64,7 +74,7 @@ public class Cliente {
 	@Override
 	public String toString() {
 		return "Nome..........: " + getNome() 
-			 + "Endereï¿½o......: " + getEndereco() 
+			 + "Endereço......: " + getEndereco() 
 			 + "CPF...........: " + getCpf()
 			 + "Telefone......: " + getTelefone();
 	}
