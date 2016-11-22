@@ -19,19 +19,15 @@ public class ClienteDAO implements IPadraoDAO {
 		Connection conexao = Conexao.getConexao();
 		try {
 			Statement st = conexao.createStatement();
-			st.execute("CREATE TABLE `cliente` ( " +
-						"`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT" +
-						"`NOME` VARCHAR(100) NOT NULL," +
-						"`ENDERECO` VARCHAR(100) NOT NULL,"+
-						"`CPF` INT(11) NOT NULL,"+
-						"`TELEFONE` INT(4) NOT NULL,"+
-						"`DIARIA` FLOAT NOT NULL,"+
-						"PRIMARY KEY (`ID`)"+
-						")"+
-						"COMMENT='Tabela responsável por guardar os clientes que a locadora possui'"+
-						"COLLATE='utf8_general_ci'"+
-						"ENGINE=InnoDB"+
-						";");
+			st.execute( " CREATE TABLE cliente ( " +
+						" ID INT(10) NOT NULL AUTO_INCREMENT, " +
+						" NOME VARCHAR(100) NOT NULL, " +
+						" ENDERECO VARCHAR(100) NOT NULL, "+
+						" CPF INT(11) NOT NULL, "+
+						" TELEFONE INT(4) NOT NULL, "+
+						" DIARIA FLOAT NOT NULL, "+
+						" PRIMARY KEY (ID) "+
+						");");
 			return true;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.CRIA_TABELA);
@@ -118,11 +114,11 @@ public class ClienteDAO implements IPadraoDAO {
 		}
 	}
 
-	public Cliente consulta(int codigo) throws BDException {
+	public Cliente consulta(int id) throws BDException {
 		Connection conexao = Conexao.getConexao();
 		try {
-			PreparedStatement pst = conexao.prepareStatement("SELECT * FROM cliente WHERE codigo = ?;");
-			pst.setInt(1, codigo);
+			PreparedStatement pst = conexao.prepareStatement("SELECT * FROM cliente WHERE id = ?;");
+			pst.setInt(1, id);
 			ResultSet rs = pst.executeQuery();
 			return rs.first() ? new Cliente(rs.getInt("id"),
 											rs.getString("nome"),
@@ -161,7 +157,7 @@ public class ClienteDAO implements IPadraoDAO {
 	public boolean altera(Cliente cliente) throws BDException {
 		Connection conexao = Conexao.getConexao();
 		try {
-			PreparedStatement pst = conexao.prepareStatement("UPDATE cliente SET nome = ?, endereco = ?, cpf =? , telefone = ?, WHERE codigo = ?;");// isso é pra ser assim msm??????????????????????????????????????????????????
+			PreparedStatement pst = conexao.prepareStatement("UPDATE cliente SET nome = ?, endereco = ?, cpf =? , telefone = ?, WHERE id = ?;");// isso é pra ser assim msm??????????????????????????????????????????????????
 			pst.setString(1, cliente.getNome());
 			pst.setString(2, cliente.getEndereco());
 			pst.setInt(3, cliente.getCpf());

@@ -4,13 +4,13 @@ public class VeiculoUtilitario extends Veiculo{
 	
 	private double cargaMaxima;
 
-	VeiculoUtilitario(int id, String placa, String modelo, int ano, String cor, double diaria, double cargaMaxima, boolean ativo) {
-		super(id, placa, modelo, ano, cor, diaria, ativo);
+	VeiculoUtilitario(int id, String placa, String modelo, int ano, int id_Cor, String cor, double diaria, double cargaMaxima, boolean ativo) {
+		super(id, placa, modelo, ano, id_Cor, cor, diaria, ativo);
 		setCargaMaxima(cargaMaxima);
 	}
 
 	public VeiculoUtilitario() {
-		this(0,"Sem placa", "Sem modelo", 0, "Sem cor", 0.0, 0.0, false);
+		this(0,"Sem placa", "Sem modelo",0, 0, "Sem cor", 0.0, 0.0, false);
 	}
 
 	public double getCargaMaxima() {

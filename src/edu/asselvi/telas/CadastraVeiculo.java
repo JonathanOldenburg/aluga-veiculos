@@ -10,6 +10,7 @@ public class CadastraVeiculo {
 	public static void ChamaCadastro() throws BDException {
 
 		VeiculoDAO veiculoDAO = new VeiculoDAO();
+		//veiculoDAO.criaTabela();
 		int liOpcao = Msg.perguntaInt("1 - Cadastro \n2 - Exclusão");
 		if (liOpcao == 1) {
 
@@ -17,8 +18,8 @@ public class CadastraVeiculo {
 			veiculo.setPlaca(Msg.perguntaStr("Digite a placa:"));
 			veiculo.setModelo(Msg.perguntaStr("Digite o modelo:"));
 			veiculo.setAno(Msg.perguntaInt("Digite o ano"));
-			// veiculo.setIDcor(Msg.perguntaInt("Escolha a cor no combo")); //
-			// arrumar
+			veiculo.setId_Cor(Msg.perguntaInt("Escolha a cor no combo")); // arrumar essa caralho
+			
 			veiculo.setDiaria((Msg.perguntaDouble("Digite a diaria")));
 			veiculo.setAtivo(true);
 

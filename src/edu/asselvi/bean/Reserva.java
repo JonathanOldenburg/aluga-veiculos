@@ -3,22 +3,32 @@ package edu.asselvi.bean;
 import java.util.Date;
 
 public class Reserva {
+	private int id;
+
 	private Date inicio;
 	private Date fim;
 	private String cliente;
 	private boolean reservou;
 
-	Reserva(Date inicio, Date fim, String cliente, boolean reservou){
+	Reserva(int id, Date inicio, Date fim, String cliente, boolean reservou) {
 		setInicio(inicio);
 		setFim(fim);
 		setCliente(cliente);
 		setReservou(reservou);
 	}
-	
-	Reserva(){
-		this(new Date(),new Date(),"Sem cliente", false);		
+
+	Reserva() {
+		this(0, new Date(), new Date(), "Sem cliente", false);
 	}
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Date getInicio() {
 		return inicio;
 	}
@@ -50,14 +60,11 @@ public class Reserva {
 	public void setReservou(boolean reservou) {
 		this.reservou = reservou;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Inicio........: " + getInicio() 
-			 + "Fim...........: " + getFim() 
-			 + "Cliente.......: " + getCliente()
-			 + "Reservou......: " + isReservou()
-			 ;
+		return "Inicio........: " + getInicio() + "Fim...........: " + getFim() + "Cliente.......: " + getCliente()
+				+ "Reservou......: " + isReservou();
 	}
 
 }

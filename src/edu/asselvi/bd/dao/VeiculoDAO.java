@@ -19,20 +19,18 @@ public class VeiculoDAO implements IPadraoDAO {
 		Connection conexao = Conexao.getConexao();
 		try {
 			Statement st = conexao.createStatement();
-			st.execute("CREATE TABLE `veiculo` ( " +
-						"`ID` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT" +
-						"`PLACA` VARCHAR(7) NOT NULL," +
-						"`MODELO` VARCHAR(100) NOT NULL,"+
-						"`ANO` INT(4) NOT NULL,"+
-						"`ID_COR` INT(4) NOT NULL,"+
-						"`DIARIA` FLOAT NOT NULL,"+
-						"PRIMARY KEY (`ID`)"+
-						"`ATIVO` VARCHAR(1) NOT NULL DEFAULT '0'" +
-						")"+
-						"COMMENT='Tabela responsável por guardar os veículos que a locadora possui'"+
-						"COLLATE='utf8_general_ci'"+
-						"ENGINE=InnoDB"+
-						";");
+			st.execute( " CREATE TABLE VEICULO ( " +
+						" ID INT(10)  NOT NULL AUTO_INCREMENT, " +
+						" PLACA VARCHAR(7) NOT NULL, " +
+						" MODELO VARCHAR(100) NOT NULL, "+
+						" ANO INT(4) NOT NULL, "+
+						" ID_COR INT(4) NOT NULL, "+
+						" DIARIA FLOAT NOT NULL, "+
+						" ATIVO VARCHAR(1) DEFAULT '0', " +
+						" PRIMARY KEY (ID) , "+
+						" INDEX FK_VEICULO_COR (ID_COR), " +											
+						" CONSTRAINT FK_VEICULO_COR FOREIGN KEY (ID_COR) REFERENCES cor (ID) " +
+						" );");
 			return true;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.CRIA_TABELA);
@@ -63,7 +61,7 @@ public class VeiculoDAO implements IPadraoDAO {
 			pst.setString(2, veiculo.getPlaca());
 			pst.setString(3, veiculo.getModelo());
 			pst.setInt(4, veiculo.getAno());
-			pst.setInt(5, 0);// arrumar, ta zuado, na hora
+			pst.setInt(5, veiculo.getId_Cor());
 			pst.setDouble(6, veiculo.getDiaria());
 			pst.setString(7, veiculo.isAtivo() ? "1" : "0");
 			return pst.executeUpdate() > 0;
@@ -83,7 +81,7 @@ public class VeiculoDAO implements IPadraoDAO {
 				pst.setString(2, veiculo.getPlaca());
 				pst.setString(3, veiculo.getModelo());
 				pst.setInt(4, veiculo.getAno());
-				pst.setInt(5, 0);// arrumar, ta zuado, na hora
+				pst.setInt(5, veiculo.getId_Cor());
 				pst.setDouble(6, veiculo.getDiaria());
 				pst.setString(7, veiculo.isAtivo() ? "1" : "0");
 				pst.executeUpdate();
@@ -106,7 +104,7 @@ public class VeiculoDAO implements IPadraoDAO {
 				pst.setString(2, veiculo.getPlaca());
 				pst.setString(3, veiculo.getModelo());
 				pst.setInt(4, veiculo.getAno());
-				pst.setInt(5, 0);// arrumar, ta zuado, na hora
+				pst.setInt(5, veiculo.getId_Cor());
 				pst.setDouble(6, veiculo.getDiaria());
 				pst.setString(7, veiculo.isAtivo() ? "1" : "0");
 				pst.executeUpdate();
@@ -125,17 +123,18 @@ public class VeiculoDAO implements IPadraoDAO {
 		}
 	}
 
-	public Veiculo consulta(int codigo) throws BDException {
+	public Veiculo consulta(int id) throws BDException {
 		Connection conexao = Conexao.getConexao();
 		try {
-			PreparedStatement pst = conexao.prepareStatement("SELECT * FROM veiculo WHERE codigo = ?;");
-			pst.setInt(1, codigo);
+			PreparedStatement pst = conexao.prepareStatement("SELECT v.id, v.placa, v.modelo, v.ano, v.id_cor, v.diaria, v.ativo, c.dsc_cor FROM veiculo v, cor c WHERE v.id = ? and c.id = v.id_cor;");
+			pst.setInt(1, id);
 			ResultSet rs = pst.executeQuery();
 			return rs.first() ? new Veiculo(rs.getInt("id"),
 											rs.getString("placa"),
 											rs.getString("modelo"),
 											rs.getInt("ano"),
-											"cor",//arrumar
+											rs.getInt("id_cor"),
+											rs.getString("dsc_cor"),
 											rs.getDouble("diaria"),
 										   	(rs.getString("ativo") == "1"))
 							: null;
@@ -150,14 +149,15 @@ public class VeiculoDAO implements IPadraoDAO {
 		Connection conexao = Conexao.getConexao();
 		try {
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM veiculo;");
+			ResultSet rs = st.executeQuery("SELECT v.id, v.placa, v.modelo, v.ano, v.id_cor, v.diaria, v.ativo, c.dsc_cor FROM veiculo v, cor c where v.id_cor = c.id;");
 			List<Veiculo> veiculos = new ArrayList<Veiculo>();
 			while (rs.next()) {
 				veiculos.add(new Veiculo(rs.getInt("id"),
 										rs.getString("placa"),
 										rs.getString("modelo"),
 										rs.getInt("ano"),
-										"cor",//arrumar
+										rs.getInt("id_cor"),
+										rs.getString("dsc_cor"),
 										rs.getDouble("diaria"),
 										(rs.getString("ativo") == "1")));
 			}
@@ -172,11 +172,11 @@ public class VeiculoDAO implements IPadraoDAO {
 	public boolean altera(Veiculo veiculo) throws BDException {
 		Connection conexao = Conexao.getConexao();
 		try {
-			PreparedStatement pst = conexao.prepareStatement("UPDATE veiculo SET placa = ?, modelo = ?, ano =? , id_cor = ?, diaria = ?, ativo = ?  WHERE codigo = ?;");
+			PreparedStatement pst = conexao.prepareStatement("UPDATE veiculo SET placa = ?, modelo = ?, ano =? , id_cor = ?, diaria = ?, ativo = ?  WHERE id = ?;");
 			pst.setString(1, veiculo.getPlaca());
 			pst.setString(2, veiculo.getModelo());
 			pst.setInt(3, veiculo.getAno());
-			pst.setInt(4, 0); // Arrumar
+			pst.setInt(4, veiculo.getId_Cor());
 			pst.setDouble(5, veiculo.getDiaria());
 			pst.setString(5, veiculo.isAtivo() ? "1" : "0");
 			return pst.executeUpdate() > 0;

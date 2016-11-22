@@ -17,7 +17,7 @@ public class Principal {
 								   + "\n1 - Cadastro" 
 								   + "\n2 - Consulta" 
 								   + "\n0 - Sair"));
-			if(liOpcao != 1){
+			if (liOpcao != 1 && liOpcao != 2){
 				Msg.erro("Opção escolhida não existe. Verifique!");							
 			} 
 			if(liOpcao == 1){
@@ -25,14 +25,36 @@ public class Principal {
 											   + "\n1 - Cliente"
 											   + "\n2 - Locação"
 											   + "\n3 - Reserva"
-											   + "\n4 - Veiculo"));
+											   + "\n4 - Veiculo"
+											   + "\n5 - Cor"));
 				switch(liOpcaoCadastro){
 				  case 1 : CadastraCliente.ChamaCadastro();
 					  	   break;
 				  case 2 : break;
 				  case 3 : break;
 				  case 4 : CadastraVeiculo.ChamaCadastro(); 
+				  		   break;
+				  case 5 : CadastraCor.ChamaCadastro();
+				  		   break;
 				}
+			}else{
+				liOpcaoCadastro = (Msg.perguntaInt("Escolha :"
+											   + "\n1 - Cliente"
+											   + "\n2 - Locação"
+											   + "\n3 - Reserva"
+											   + "\n4 - Veiculo"
+											   + "\n5 - Cor"));
+				switch(liOpcaoCadastro){
+				  case 1 : CadastraCliente.ChamaCadastro();
+					  	   break;
+				  case 2 : break;
+				  case 3 : break;
+				  case 4 : ConsultaVeiculos.ChamaConsulta(); 
+				  		   break;
+				  case 5 : CadastraCor.ChamaCadastro();
+				  		   break;
+				
+				}	
 			}
 		}
 	}

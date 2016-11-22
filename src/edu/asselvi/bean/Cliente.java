@@ -8,10 +8,6 @@ public class Cliente {
 	private int cpf;
 	private int telefone;
 
-	public String getNome() {
-		return nome;
-	}
-
 	public Cliente(int id, String nome, String endereco, int cpf, int telefone) {
 		setId(id);
 		setNome(nome);
@@ -19,6 +15,11 @@ public class Cliente {
 		setCpf(cpf);
 		setTelefone(telefone);
 	}
+	
+	public Cliente() {
+		this(0,"Sem nome", "Sem endereço", 0, 0); // ficou esse erro aq q eu n entendi
+	}
+
 
 	public int getId() {
 		return id;
@@ -27,9 +28,9 @@ public class Cliente {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public Cliente() {
-		this("Sem nome", "Sem endereço", 0, 0); // ficou esse erro aq q eu n entendi
+	
+	public String getNome() {
+		return nome;
 	}
 
 	public void setNome(String nome) {

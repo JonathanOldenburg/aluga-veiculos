@@ -6,22 +6,24 @@ public class Veiculo {
 	private String placa;
 	private String modelo;
 	private int ano;
+	private int id_Cor;	
 	private String cor;
 	private double diaria;
 	private boolean ativo;
 
-	public Veiculo(int id, String placa, String modelo, int ano, String cor, double diaria, boolean ativo){
+	public Veiculo(int id, String placa, String modelo, int ano, int id_Cor, String cor, double diaria, boolean ativo){
 		setId(id);
 		setPlaca(placa);
 		setModelo(modelo);
 		setAno(ano);
+		setId_Cor(id_Cor);
 		setCor(cor);
 		setDiaria(diaria);
 		
 	}
 	
 	public Veiculo(){
-		this(0,"ZZZ0000", "Sem modelo", 0, "Sem cor", 0.0, false);
+		this(0,"ZZZ0000", "Sem modelo", 0, 0,"Sem cor", 0.0, false);
 	}
 
 	public int getId() {
@@ -56,6 +58,15 @@ public class Veiculo {
 		this.ano = ano;
 	}
 
+	public int getId_Cor() {
+		return id_Cor;
+	}
+
+	public void setId_Cor(int idCor) {
+		this.id_Cor = idCor;
+	}
+
+	
 	public String getCor() {
 		return cor;
 	}
@@ -83,11 +94,11 @@ public class Veiculo {
 	@Override
 	public String toString() {
 		return "Placa.........: " + getPlaca() 
-			 + "Modelo........: " + getModelo() 
-			 + "Ano...........: " + getAno()
-			 + "Cor...........: " + getCor()
-			 + "Diaria........: " + getDiaria()
-			 + "Ativo.........: " +  (isAtivo() ? "S" : "N");
+			 + "\nModelo........: " + getModelo() 
+			 + "\nAno...........: " + getAno()
+			 + "\nCor...........: " + getCor()
+			 + "\nDiaria........: " + getDiaria()
+			 + "\nAtivo.........: " +  (isAtivo() ? "S" : "N");
 	}
 
 }

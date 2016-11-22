@@ -10,6 +10,7 @@ public class CadastraCliente {
 	public static void ChamaCadastro() throws BDException {
 
 		ClienteDAO clienteDAO = new ClienteDAO();
+		//clienteDAO.criaTabela();
 		int liOpcao = Msg.perguntaInt("1 - Cadastro \n2 - Exclusão");
 		if (liOpcao == 1) {
 
@@ -24,8 +25,7 @@ public class CadastraCliente {
 		} else {
 			if (clienteDAO.exclui(Msg.perguntaInt("Digite o ID do carro a ser excluído"))) {
 				Msg.informa("Cliente excluído com sucesso!");
-			}
-			else{
+			} else {
 				Msg.informa("Cliente não existe!");
 			}
 			;
