@@ -22,7 +22,7 @@ public class LocacaoDAO implements IPadraoDAO {
 			st.execute( " CREATE TABLE locacao ( " +
 						" ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT, " +
 						" ID_RESERVA INT FOREIGN NOT NULL, " +
-						" ENTREGE BOOLEAN NOT NULL, "+ 
+						" ENTREGE STRING(1) NOT NULL "+ 
 						");");
 			return true;
 		} catch (Exception e) {
@@ -52,7 +52,7 @@ public class LocacaoDAO implements IPadraoDAO {
 			PreparedStatement pst = conexao.prepareStatement("INSERT INTO locacao (id, id_reserva, entrege) VALUES (?, ?, ?);");
 			pst.setInt(1, 0);
 			pst.setInt(2, locacao.getId_Reserva());
-			pst.setBoolean(3, locacao.getEntrege());  // como faz aqui? isEntrege() ta serto isso? 
+			pst.setString(3, locacao.isEntrege()? "1" : "0");  // como faz aqui? isEntrege() ta serto isso? 
 			return pst.executeUpdate() > 0;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.INSERE_DADO);
@@ -68,7 +68,7 @@ public class LocacaoDAO implements IPadraoDAO {
 			for (Locacao locacao : locacoes) {				
 				pst.setInt(1, 0);
 				pst.setInt(2, locacao.getId_Reserva());
-				pst.setBoolean(3, locacao.getEntrege());  // como faz aqui? isEntrege() ta serto isso? 
+				pst.setString(3, locacao.isEntrege()? "1" : "0");  // como faz aqui? isEntrege() ta serto isso? 
 				pst.executeUpdate();
 			}
 			return true;
@@ -87,7 +87,7 @@ public class LocacaoDAO implements IPadraoDAO {
 			for (Locacao locacao : locacoes) {
 				pst.setInt(1, locacao.getId());
 				pst.setInt(2, locacao.getId_Reserva());
-				pst.setBoolean(3, locacao.getEntrege());  // como faz aqui? isEntrege() ta serto isso? 
+				pst.setString(3, locacao.isEntrege()? "1" : "0");  // como faz aqui? isEntrege() ta serto isso? 
 				pst.executeUpdate();
 			}
 			conexao.commit();
@@ -112,7 +112,7 @@ public class LocacaoDAO implements IPadraoDAO {
 			ResultSet rs = pst.executeQuery();
 			return rs.first() ? new Locacao(rs.getInt("id"),
 											rs.getInt("id_Reserva"),
-											rs.getBoolean("entrege"))  // aqui rodou o boolean mas n sei se ta procedivel
+											rs.getString("entrege") == "1")  // aqui rodou o boolean mas n sei se ta procedivel
 							: null;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.CONSULTA_DADO);
@@ -130,7 +130,7 @@ public class LocacaoDAO implements IPadraoDAO {
 			while (rs.next()) {
 				locacoes.add(new Locacao(rs.getInt("id"),
 									     rs.getInt("id_Reserva"),
-										 rs.getBoolean("entrege")));  // aqui rodou o boolean mas n sei se ta procedivel));
+									     rs.getString("entrege") == "1"));  // aqui rodou o boolean mas n sei se ta procedivel));
 			}
 			return locacoes;
 		} catch (Exception e) {
@@ -144,7 +144,7 @@ public class LocacaoDAO implements IPadraoDAO {
 		Connection conexao = Conexao.getConexao();
 		try {
 			PreparedStatement pst = conexao.prepareStatement("UPDATE locacao SET entrege = ? WHERE id = ?;");
-			pst.setBoolean(1, locacao.getEntrege()); // here ta errado too... é isEntrege msm?
+			pst.setString(1, locacao.isEntrege() ? "1" : "0"); 
 			return pst.executeUpdate() > 0;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.ATUALIZA_DADO);

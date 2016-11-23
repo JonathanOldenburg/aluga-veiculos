@@ -1,11 +1,13 @@
 package edu.asselvi.telas;
 
+import java.text.ParseException;
+
 import edu.asselvei.bd.BDException;
 import edu.asselvi.utils.Msg;
 
 public class Principal {
 
-	public static void main(String[] args) throws BDException {
+	public static void main(String[] args) throws BDException, ParseException {
 		int liOpcao = -1;
 		int liOpcaoCadastro;
 		while (liOpcao != 0) {

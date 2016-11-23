@@ -22,11 +22,11 @@ public class ReservaDAO implements IPadraoDAO{
 			Statement st = conexao.createStatement();
 			st.execute( " CREATE TABLE reserva ( " +
 						" ID INT(10) NOT NULL PRIMARY KEY AUTO_INCREMENT, " +
-						" INICIO DATE NOT NULL, " +  // ta serto o date aq???????????????????????????????????
+						" INICIO DATE NOT NULL, " +  
 						" FIM DATE NOT NULL, "+
 						" ID_CLIENTE INT NOT FOREIGN KEY NULL, "+
-						" ID_CARRO INT NOT FOREIGN KEY NULL "+
-						" RESERVOU BOOLEAN NOT NULL "+  // BOOLEAN AQ????????
+						" ID_CARRO INT NOT FOREIGN KEY NULL, "+
+						" RESERVOU VARCHAR(1) NOT NULL "+  
 						");");
 			return true;
 		} catch (Exception e) {
@@ -55,11 +55,11 @@ public class ReservaDAO implements IPadraoDAO{
 		try {
 			PreparedStatement pst = conexao.prepareStatement("INSERT INTO reserva (id, inicio, fim, id_cliente, id_carro) VALUES (?, ?, ?, ?, ?);");
 			pst.setInt(1, 0);
-//			pst.setDate(2,  new Java.sql.date());    ??????EAE MANO COMO QUE FICA ESSA POUCA VERGONHA AQUI?????
+//			pst.setDate(2,  new Java.sql.date());    // n sei
 //			pst.setDate(3,  new Java.sql.date());
 			pst.setInt(4, reserva.getId_Cliente());
 			pst.setInt(5, reserva.getId_Carro());
-//			pst.setBoolean(6, reserva.setReservou();  // aq ta wrong tbm
+			pst.setString(6, reserva.isReservou() ? "1" : "0");  // aq ta wrong tbm
 			return pst.executeUpdate() > 0;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.INSERE_DADO);
@@ -117,18 +117,20 @@ public class ReservaDAO implements IPadraoDAO{
 		}
 	}
 
-	public Reserva consulta(int id, date inicio, date fim, int id_Cliente, int id_Carro, boolean reserva) throws BDException {
+	public Reserva consulta(int id) throws BDException {
 		Connection conexao = Conexao.getConexao();
 		try {
-			PreparedStatement pst = conexao.prepareStatement("SELECT * FROM reserva r, locacao l  WHERE id = ? and r.id_Cliente = l.id_Cliente;");
+			PreparedStatement pst = conexao.prepareStatement("SELECT r.id, r.inicio, r.fim, r.id_cliente, r.id_carro, r.reservou, ci.nome, v.modelo FROM reserva r, cliente ci, veiculo v WHERE id = ? and r.id_Cliente = ci.id and r.id_carro = v.id;");
 			pst.setInt(1, id);
 			ResultSet rs = pst.executeQuery();
 			return rs.first() ? new Reserva(rs.getInt("id"),
 											rs.getDate("inicio"),
 											rs.getDate("fim"),
 											rs.getInt("id_cliente"),
+											rs.getString("nome"),
 											rs.getInt("id_carro"),
-											rs.getBoolean("reservou"))
+											rs.getString("modelo"),
+											rs.getString("reservou") == "1")
 							: null;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.CONSULTA_DADO);
@@ -141,14 +143,17 @@ public class ReservaDAO implements IPadraoDAO{
 		Connection conexao = Conexao.getConexao();
 		try {
 			Statement st = conexao.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM reserva;");
+			ResultSet rs = st.executeQuery("SELECT r.id, r.inicio, r.fim, r.id_cliente, r.id_carro, r.reservou, ci.nome, v.modelo FROM reserva r, cliente ci, veiculo v where r.id_cliente = c.id and r.id_carro = v.id;");
 			List<Reserva> reservas = new ArrayList<Reserva>();
 			while (rs.next()) {
 				reservas.add(new Reserva(rs.getInt("id"),
-									   	 rs.getString("nome"),
-										 rs.getString("endereco"),
-										 rs.getInt("cpf"),
-										 rs.getString("telefone")));
+										rs.getDate("inicio"),
+										rs.getDate("fim"),
+										rs.getInt("id_cliente"),
+										rs.getString("nome"),
+										rs.getInt("id_carro"),
+										rs.getString("modelo"),
+										rs.getString("reservou") == "1"));
 			}
 			return reservas;
 		} catch (Exception e) {
@@ -161,13 +166,9 @@ public class ReservaDAO implements IPadraoDAO{
 	public boolean altera(Reserva reserva) throws BDException {
 		Connection conexao = Conexao.getConexao();
 		try {
-			PreparedStatement pst = conexao.prepareStatement("UPDATE reserva SET inicio = ?, fim = ?, reservou = ? WHERE id = ?;"); // aqui é para os ids vir tbm?
-			pst.setInt(1, reserva.getId());
-//			pst.setDate(2,  new Java.sql.date());    ??????EAE MANO COMO QUE FICA ESSA POUCA VERGONHA AQUI?????
-//			pst.setDate(3,  new Java.sql.date());
-			pst.setInt(4, reserva.getId_Cliente());
-			pst.setInt(5, reserva.getId_Carro());
-//			pst.setBoolean(6, reserva.setReservou();  // aq ta wrong tbm
+			PreparedStatement pst = conexao.prepareStatement("UPDATE reserva SET reservou = ? WHERE id = ?;"); 				
+			pst.setString(1, reserva.isReservou() ? "0" : "1");
+			pst.setInt(2, reserva.getId());  // Só da pra mudar se a reserva foi feita ou não, ativa e desativa
 			return pst.executeUpdate() > 0;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.ATUALIZA_DADO);

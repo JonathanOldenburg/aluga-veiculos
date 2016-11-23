@@ -1,5 +1,6 @@
 package edu.asselvi.telas;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import edu.asselvei.bd.BDException;
@@ -10,7 +11,7 @@ import edu.asselvi.utils.Msg;
 
 public class CadastraReserva implements IPadraoCadastra {
 
-	public static void chamaCadastro() throws BDException {
+	public static void chamaCadastro() throws BDException, ParseException {
 
 		ReservaDAO reservaDAO = new ReservaDAO();
 		//reservaDAO.criaTabela();
@@ -19,9 +20,10 @@ public class CadastraReserva implements IPadraoCadastra {
 
 			Reserva reserva = new Reserva();
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			java.sql.Date data = new java.sql.Date(format.parse(dataStr).getTime());
-			reserva.setInicio((Msg.perguntaStr("Data de inicio:"));
-			reserva.setFim(Msg.perguntaStr("Data Final"));
+			java.sql.Date dataInicio = new java.sql.Date(format.parse(Msg.perguntaStr("Digite a data de inicio")).getTime());
+			reserva.setInicio(dataInicio);
+			java.sql.Date dataFim= new java.sql.Date(format.parse(Msg.perguntaStr("Digite a data final")).getTime());
+			reserva.setFim(dataFim);
 
 			reservaDAO.insere(reserva);
 
