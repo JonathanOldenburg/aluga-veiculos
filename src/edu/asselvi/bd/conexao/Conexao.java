@@ -11,14 +11,18 @@ public class Conexao {
 	private static Connection conn = null;
 
 	public static Connection getConexao() throws BDException {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/locadora?useSSL=true", "root", "social");
-			return conn;
-		} catch (Exception e) {
-			throw new BDException(e.getMessage(), EErrosBD.ABRE_CONEXAO);
-		}
-	}
+        return getConexao("locadora");
+    }
+    
+    public static Connection getConexao(String database) throws BDException {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+database+"?useSSL=true", "root", "root");
+            return conn;
+        } catch (Exception e) {
+            throw new BDException(e.getMessage(), EErrosBD.ABRE_CONEXAO);
+        }
+    }
 	
 	public static void fechaConexao() throws BDException {
 		try {
