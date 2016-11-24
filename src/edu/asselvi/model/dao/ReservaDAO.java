@@ -12,7 +12,7 @@ import edu.asselvi.bd.EErrosBD;
 import edu.asselvi.bd.conexao.Conexao;
 import edu.asselvi.model.bean.Reserva;
 
-public class ReservaDAO implements IPadraoDAO{
+public class ReservaDAO implements IPadraoDAO<Reserva> {
 
 	@Override
 	public boolean criaTabela() throws BDException {
@@ -53,13 +53,13 @@ public class ReservaDAO implements IPadraoDAO{
 	public boolean insere(Reserva reserva) throws BDException {
 		Connection conexao = Conexao.getConexao();
 		try {
-			PreparedStatement pst = conexao.prepareStatement("INSERT INTO reserva (id, inicio, fim, id_cliente, id_carro) VALUES (?, ?, ?, ?, ?);");
+			PreparedStatement pst = conexao.prepareStatement("INSERT INTO reserva (id, inicio, fim, id_cliente, id_carro, reservou) VALUES (?, ?, ?, ?, ?, ?);");
 			pst.setInt(1, 0);
-//			pst.setDate(2,  new Java.sql.date());    // n sei
-//			pst.setDate(3,  new Java.sql.date());
-			pst.setInt(4, reserva.getId_Cliente());
-			pst.setInt(5, reserva.getId_Carro());
-			pst.setString(6, reserva.isReservou() ? "1" : "0");  // aq ta wrong tbm
+			pst.setDate(2,  new java.sql.Date(reserva.getInicio().getTime()));
+			pst.setDate(3,  new java.sql.Date(reserva.getFim().getTime()));
+			pst.setInt(4, reserva.getIdCliente());
+			pst.setInt(5, reserva.getIdCarro());
+			pst.setString(6, reserva.isReservou() ? "1" : "0");
 			return pst.executeUpdate() > 0;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.INSERE_DADO);
@@ -76,8 +76,8 @@ public class ReservaDAO implements IPadraoDAO{
 				pst.setInt(1, reserva.getId());
 //				pst.setDate(2,  new Java.sql.date());    ??????EAE MANO COMO QUE FICA ESSA POUCA VERGONHA AQUI?????
 //				pst.setDate(3,  new Java.sql.date());
-				pst.setInt(4, reserva.getId_Cliente());
-				pst.setInt(5, reserva.getId_Carro());
+				pst.setInt(4, reserva.getIdCliente());
+				pst.setInt(5, reserva.getIdCarro());
 //				pst.setBoolean(6, reserva.setReservou();  // aq ta wrong tbm
 				pst.executeUpdate();
 			}
@@ -98,8 +98,8 @@ public class ReservaDAO implements IPadraoDAO{
 				pst.setInt(1, reserva.getId());
 //				pst.setDate(2,  new Java.sql.date());    ??????EAE MANO COMO QUE FICA ESSA POUCA VERGONHA AQUI?????
 //				pst.setDate(3,  new Java.sql.date());
-				pst.setInt(4, reserva.getId_Cliente());
-				pst.setInt(5, reserva.getId_Carro());
+				pst.setInt(4, reserva.getIdCliente());
+				pst.setInt(5, reserva.getIdCarro());
 //				pst.setBoolean(6, reserva.setReservou();  // aq ta wrong tbm
 				pst.executeUpdate();
 			}
@@ -189,5 +189,36 @@ public class ReservaDAO implements IPadraoDAO{
 			Conexao.fechaConexao();
 		}
 	}
+
+    @Override
+    public List<Reserva> consulta(Reserva reserva) throws BDException {
+        Connection conexao = Conexao.getConexao();
+        try {
+            PreparedStatement st = conexao.prepareStatement("SELECT r.id, r.inicio, r.fim, r.id_cliente, r.id_carro, r.reservou, ci.nome, v.modelo "
+                                                          + "FROM reserva r, cliente ci, veiculo v "
+                                                          + "WHERE r.id_cliente = c.id and r.id_carro = v.id AND"
+                                                          + "( r.id_cliente = ? or r.id_carro = ?;");
+            st.setInt(1, reserva.getIdCliente());
+            st.setInt(2, reserva.getIdCarro());
+            
+            ResultSet rs = st.executeQuery();
+            List<Reserva> reservas = new ArrayList<Reserva>();
+            while (rs.next()) {
+                reservas.add(new Reserva(rs.getInt("id"),
+                                        rs.getDate("inicio"),
+                                        rs.getDate("fim"),
+                                        rs.getInt("id_cliente"),
+                                        rs.getString("nome"),
+                                        rs.getInt("id_carro"),
+                                        rs.getString("modelo"),
+                                        rs.getString("reservou") == "1"));
+            }
+            return reservas;
+        } catch (Exception e) {
+            throw new BDException(e.getMessage(), EErrosBD.CONSULTA_DADO);
+        } finally {
+            Conexao.fechaConexao();
+        }
+    }
 
 }

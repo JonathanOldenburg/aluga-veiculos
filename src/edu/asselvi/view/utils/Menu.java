@@ -12,11 +12,22 @@ public class Menu {
     private boolean disposed;
     private int defaultClosingOption;
     private Map<Integer, Runnable> options;
+    private Runnable closingAction;
 
     public Menu() {
         disposed = false;
-        setDefaultClosingOption(0);
         options = new HashMap<>();
+        closingAction = new Runnable() {
+            @Override
+            public void run() {
+                disposed = true;
+            }
+            @Override
+            public String toString() {
+                return "Sair";
+            }
+        };
+        setDefaultClosingOption(0);
     }
 
     public boolean show() {
@@ -45,8 +56,7 @@ public class Menu {
     }
     
     private void executeOption(int opcaoUsuario) throws InvalidOptionException {
-        disposed = opcaoUsuario == getDefaultClosingOption();
-        if (options.containsKey(opcaoUsuario) && !isDisposed()) {
+        if (options.containsKey(opcaoUsuario)) {
             Runnable opcaoModulo = options.get(opcaoUsuario);
             opcaoModulo.run();
         } else {
@@ -63,6 +73,10 @@ public class Menu {
     }
 
     public void setDefaultClosingOption(int defaultClosingOption) {
+        if (options.containsKey(defaultClosingOption)) {
+            options.remove(defaultClosingOption);
+        }
+        options.put(defaultClosingOption, closingAction);
         this.defaultClosingOption = defaultClosingOption;
     }
 }

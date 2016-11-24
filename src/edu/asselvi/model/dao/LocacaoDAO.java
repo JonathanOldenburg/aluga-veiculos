@@ -12,7 +12,7 @@ import edu.asselvi.bd.EErrosBD;
 import edu.asselvi.bd.conexao.Conexao;
 import edu.asselvi.model.bean.Locacao;
 
-public class LocacaoDAO implements IPadraoDAO {
+public class LocacaoDAO implements IPadraoDAO<Locacao> {
 
 	@Override
 	public boolean criaTabela() throws BDException {
@@ -51,7 +51,7 @@ public class LocacaoDAO implements IPadraoDAO {
 		try {
 			PreparedStatement pst = conexao.prepareStatement("INSERT INTO locacao (id, id_reserva, entrege) VALUES (?, ?, ?);");
 			pst.setInt(1, 0);
-			pst.setInt(2, locacao.getId_Reserva());
+			pst.setInt(2, locacao.getIdReserva());
 			pst.setString(3, locacao.isEntrege()? "1" : "0");  // como faz aqui? isEntrege() ta serto isso? 
 			return pst.executeUpdate() > 0;
 		} catch (Exception e) {
@@ -67,7 +67,7 @@ public class LocacaoDAO implements IPadraoDAO {
 			PreparedStatement pst = conexao.prepareStatement("INSERT INTO locacao (id, id_reserva, entrege) VALUES (?, ?, ?);");
 			for (Locacao locacao : locacoes) {				
 				pst.setInt(1, 0);
-				pst.setInt(2, locacao.getId_Reserva());
+				pst.setInt(2, locacao.getIdReserva());
 				pst.setString(3, locacao.isEntrege()? "1" : "0");  // como faz aqui? isEntrege() ta serto isso? 
 				pst.executeUpdate();
 			}
@@ -86,7 +86,7 @@ public class LocacaoDAO implements IPadraoDAO {
 			PreparedStatement pst = conexao.prepareStatement("INSERT INTO locacao (id, id_reserva, entrege) VALUES (?, ?, ?);");
 			for (Locacao locacao : locacoes) {
 				pst.setInt(1, locacao.getId());
-				pst.setInt(2, locacao.getId_Reserva());
+				pst.setInt(2, locacao.getIdReserva());
 				pst.setString(3, locacao.isEntrege()? "1" : "0");  // como faz aqui? isEntrege() ta serto isso? 
 				pst.executeUpdate();
 			}
@@ -165,5 +165,26 @@ public class LocacaoDAO implements IPadraoDAO {
 			Conexao.fechaConexao();
 		}
 	}
+
+    @Override
+    public List<Locacao> consulta(Locacao locacao) throws BDException {
+        Connection conexao = Conexao.getConexao();
+        try {
+            PreparedStatement st = conexao.prepareStatement("SELECT * FROM locacao"
+                                                          + "WHERE id_reserva = ?;");
+            ResultSet rs = st.executeQuery();
+            List<Locacao> locacoes = new ArrayList<Locacao>();
+            while (rs.next()) {
+                locacoes.add(new Locacao(rs.getInt("id"),
+                                         rs.getInt("id_Reserva"),
+                                         rs.getString("entrege") == "1"));
+            }
+            return locacoes;
+        } catch (Exception e) {
+            throw new BDException(e.getMessage(), EErrosBD.CONSULTA_DADO);
+        } finally {
+            Conexao.fechaConexao();
+        }
+    }
 
 }

@@ -73,10 +73,11 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Nome..........: " + getNome() 
-			 + "Endereço......: " + getEndereco() 
-			 + "CPF...........: " + getCpf()
-			 + "Telefone......: " + getTelefone();
+		return "ID............:" + getId()
+		     + "\nNome..........: " + getNome() 
+			 + "\nEndereço......: " + getEndereco() 
+			 + "\nCPF...........: " + getCpf()
+			 + "\nTelefone......: " + getTelefone();
 	}
 
 }

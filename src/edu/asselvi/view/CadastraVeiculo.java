@@ -1,13 +1,15 @@
 package edu.asselvi.view;
 
+import java.util.List;
+
 import edu.asselvi.bd.BDException;
 import edu.asselvi.model.bean.Veiculo;
 import edu.asselvi.model.dao.VeiculoDAO;
-import edu.asselvi.view.interfaces.IPadraoCadastra;
+import edu.asselvi.view.interfaces.IDataHandler;
 import edu.asselvi.view.utils.Menu;
 import edu.asselvi.view.utils.Msg;
 
-public class CadastraVeiculo implements IPadraoCadastra {
+public class CadastraVeiculo implements IDataHandler {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,7 +25,7 @@ public class CadastraVeiculo implements IPadraoCadastra {
 	            veiculo.setPlaca(Msg.perguntaStr("Digite a placa:"));
 	            veiculo.setModelo(Msg.perguntaStr("Digite o modelo:"));
 	            veiculo.setAno(Msg.perguntaInt("Digite o ano"));
-	            veiculo.setId_Cor(Msg.perguntaInt("Escolha a cor no combo")); //TODO: arrumar
+	            veiculo.setIdCor(Msg.perguntaInt(CadastraCor.getListaFormadataCores()+"\nInforme o id da cor desejada :"));
 	            
 	            veiculo.setDiaria((Msg.perguntaDouble("Digite a diaria")));
 	            veiculo.setAtivo(true);
@@ -63,9 +65,56 @@ public class CadastraVeiculo implements IPadraoCadastra {
 		        return "Excluir veiculo";
 		    }
 		})
+		.addOption(3, new Runnable() {
+            
+            @Override
+            public void run() {
+                StringBuffer stringBuffer = new StringBuffer();
+                Veiculo veiculo = new Veiculo();
+                String placa = Msg.perguntaStr("Digite a placa:");
+                veiculo.setPlaca(placa.isEmpty() ? null : placa);
+                veiculo.setModelo(Msg.perguntaStr("Digite o modelo:"));
+                veiculo.setAno(Msg.perguntaInt("Digite o ano"));
+                veiculo.setIdCor(Msg.perguntaInt(CadastraCor.getListaFormadataCores()+"\nInforme o id da cor desejada :"));
+                
+                veiculo.setDiaria((Msg.perguntaDouble("Digite a diaria")));
+                veiculo.setAtivo(true);
+                
+                try {
+                    List<Veiculo> veiculos = veiculoDAO.consulta(veiculo);
+                    for (Veiculo veiculoReg : veiculos) {
+                        stringBuffer.append(veiculoReg.toString()+"\n");
+                    }
+                    Msg.informa(stringBuffer.toString());
+                } catch (BDException e) {
+                    e.printStackTrace();
+                    Msg.erro(e.getMessage());
+                }
+            }
+            
+            @Override
+            public String toString() {
+                return "Consultar veiculo";
+            }
+        })
 		.show();
 	}
 
+    public static String getListaFormadataVeiculos() {
+        VeiculoDAO veiculoDAO = new VeiculoDAO();
+        StringBuffer stringBuffer = new StringBuffer();
+        
+        try {
+            List<Veiculo> veiculos = veiculoDAO.consulta();
+            for (Veiculo veivuloReg : veiculos) {
+                stringBuffer.append(veivuloReg.toString()+"\n");
+            }
+        } catch (BDException e) {
+            Msg.erro(e.getMessage());
+        }
+        return stringBuffer.toString();
+    }
+    
     @Override
     public String toString() {
         return "Veiculos";

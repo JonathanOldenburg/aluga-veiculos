@@ -12,7 +12,7 @@ import edu.asselvi.bd.EErrosBD;
 import edu.asselvi.bd.conexao.Conexao;
 import edu.asselvi.model.bean.Cor;
 
-public class CorDAO implements IPadraoDAO {
+public class CorDAO implements IPadraoDAO<Cor> {
 
 	@Override
 	public boolean criaTabela() throws BDException {
@@ -50,7 +50,7 @@ public class CorDAO implements IPadraoDAO {
 		try {
 			PreparedStatement pst = conexao.prepareStatement("INSERT INTO cor (id, dsc_cor) VALUES (?, ?);");
 			pst.setInt(1, 0);
-			pst.setString(2, cor.getDsc_cor());			
+			pst.setString(2, cor.getDscCor());			
 			return pst.executeUpdate() > 0;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.INSERE_DADO);
@@ -59,13 +59,14 @@ public class CorDAO implements IPadraoDAO {
 		}
 	}
 	
+	@Override
 	public boolean insere(List<Cor> cores) throws BDException {
 		Connection conexao = Conexao.getConexao();
 		try {
 			PreparedStatement pst = conexao.prepareStatement("INSERT INTO cor (id, dsc_cor) VALUES (?, ?);");
 			for (Cor cor : cores) {				
 				pst.setInt(1, cor.getId());
-				pst.setString(2, cor.getDsc_cor());				
+				pst.setString(2, cor.getDscCor());				
 				pst.executeUpdate();
 			}
 			return true;
@@ -83,7 +84,7 @@ public class CorDAO implements IPadraoDAO {
 			PreparedStatement pst = conexao.prepareStatement("INSERT INTO cor (id, dsc_cor) VALUES (?, ?);");
 			for (Cor cor : cores) {
 				pst.setInt(1, cor.getId());
-				pst.setString(2, cor.getDsc_cor());				
+				pst.setString(2, cor.getDscCor());				
 				pst.executeUpdate();
 			}
 			conexao.commit();
@@ -138,7 +139,7 @@ public class CorDAO implements IPadraoDAO {
 		Connection conexao = Conexao.getConexao();
 		try {
 			PreparedStatement pst = conexao.prepareStatement("UPDATE cor SET placa = ?, modelo = ?, ano =? , id_cor = ?, diaria = ?, ativo = ?  WHERE id = ?;");
-			pst.setString(1, cor.getDsc_cor());			
+			pst.setString(1, cor.getDscCor());			
 			return pst.executeUpdate() > 0;
 		} catch (Exception e) {
 			throw new BDException(e.getMessage(), EErrosBD.ATUALIZA_DADO);
@@ -160,4 +161,24 @@ public class CorDAO implements IPadraoDAO {
 		}
 	}
 
+    @Override
+    public List<Cor> consulta(Cor cor) throws BDException {
+        Connection conexao = Conexao.getConexao();
+        try {
+            PreparedStatement st = conexao.prepareStatement("SELECT * FROM cor"
+                                                          + "WHERE dsc_cor like ?;");
+            st.setString(1, cor.getDscCor());
+            ResultSet rs = st.executeQuery();
+            List<Cor> cores = new ArrayList<Cor>();
+            while (rs.next()) {
+                cores.add(new Cor(rs.getInt("id"),
+                                  rs.getString("dsc_cor")));
+            }
+            return cores;
+        } catch (Exception e) {
+            throw new BDException(e.getMessage(), EErrosBD.CONSULTA_DADO);
+        } finally {
+            Conexao.fechaConexao();
+        }
+    }
 }

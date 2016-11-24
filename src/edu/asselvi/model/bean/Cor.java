@@ -3,7 +3,7 @@ package edu.asselvi.model.bean;
 public class Cor {
 	
 	private int id;
-	private String dsc_cor;
+	private String dscCor;
 	
 	public Cor(int id, String dsc_cor){
 		setId(id);
@@ -20,11 +20,16 @@ public class Cor {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getDsc_cor() {
-		return dsc_cor;
+	public String getDscCor() {
+		return dscCor;
 	}
 	public void setDsc_cor(String dsc_cor) {
-		this.dsc_cor = dsc_cor;
+		this.dscCor = dsc_cor;
 	}
 
+	@Override
+	public String toString() {
+	    return "ID : "+getId()+"\n"
+	            + "Cor : "+getDscCor();
+	}
 }

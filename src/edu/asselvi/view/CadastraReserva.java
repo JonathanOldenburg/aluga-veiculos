@@ -2,15 +2,16 @@ package edu.asselvi.view;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import edu.asselvi.bd.BDException;
 import edu.asselvi.model.bean.Reserva;
 import edu.asselvi.model.dao.ReservaDAO;
-import edu.asselvi.view.interfaces.IPadraoCadastra;
+import edu.asselvi.view.interfaces.IDataHandler;
 import edu.asselvi.view.utils.Menu;
 import edu.asselvi.view.utils.Msg;
 
-public class CadastraReserva implements IPadraoCadastra {
+public class CadastraReserva implements IDataHandler {
 
     private static final long serialVersionUID = -3845458824137037051L;
 
@@ -35,14 +36,15 @@ public class CadastraReserva implements IPadraoCadastra {
                 }
                 reserva.setFim(dataFim);
                 reserva.setInicio(dataInicio);
+                reserva.setIdCliente(Msg.perguntaInt(CadastraCliente.getListaFormadataClientes()+"\nInforme o id do cliente :"));
+                reserva.setIdCarro(Msg.perguntaInt(CadastraVeiculo.getListaFormadataVeiculos()+"\nInforme o id do veiculo desejado :"));
                 
                 try {
                     reservaDAO.insere(reserva);
+                    Msg.informa("Reserva inserida com sucesso!");                
                 } catch (BDException e) {
                     Msg.erro(e.getMessage());
                 }
-                
-                Msg.informa("Reserva inserida com sucesso!");                
             }
             
             @Override
@@ -70,6 +72,41 @@ public class CadastraReserva implements IPadraoCadastra {
 		        return "Excluir reserva";
 		    }
 		})
+		.addOption(3, new Runnable() {
+            
+            @Override
+            public void run() {
+                StringBuffer stringBuffer = new StringBuffer();
+                Reserva reserva = new Reserva();
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                java.sql.Date dataFim = null;
+                java.sql.Date dataInicio = null;
+                
+                try {
+                    dataInicio = new java.sql.Date(format.parse(Msg.perguntaStr("Digite a data de inicio")).getTime());
+                    dataFim = new java.sql.Date(format.parse(Msg.perguntaStr("Digite a data final")).getTime());
+                } catch (ParseException e1) {
+                    Msg.erro("Favor informar uma data válida.");
+                }
+                reserva.setFim(dataFim);
+                reserva.setInicio(dataInicio);
+                
+                try {
+                    List<Reserva> reservas = reservaDAO.consulta(reserva);
+                    for (Reserva reservaReg : reservas) {
+                        stringBuffer.append(reservaReg.toString()+"\n");
+                    }
+                    Msg.informa(stringBuffer.toString());
+                } catch (BDException e) {
+                    Msg.erro(e.getMessage());
+                }
+            }
+            
+            @Override
+            public String toString() {
+                return "Consultar reserva";
+            }
+        })
 		.show();
 	}
 

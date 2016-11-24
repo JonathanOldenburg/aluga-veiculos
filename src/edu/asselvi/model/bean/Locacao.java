@@ -3,12 +3,12 @@ package edu.asselvi.model.bean;
 public class Locacao {
 	
 	private int id;
-	private int id_Reserva;
+	private int idReserva;
 	private boolean entrege;
 	
 	public Locacao(int id, int id_Reserva, boolean entrege){
 		setId(id);
-		setId_Reserva(id_Reserva);
+		setIdReserva(id_Reserva);
 		setId(id_Reserva);
 	}
 	
@@ -22,11 +22,11 @@ public class Locacao {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getId_Reserva() {
-		return id_Reserva;
+	public int getIdReserva() {
+		return idReserva;
 	}
-	public void setId_Reserva(int id_Reserva) {
-		this.id_Reserva = id_Reserva;
+	public void setIdReserva(int id_Reserva) {
+		this.idReserva = id_Reserva;
 	}
 	public boolean isEntrege() {
 		return entrege;
@@ -35,9 +35,10 @@ public class Locacao {
 		this.entrege = entrege;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "Entrege: " + get // está entrege ou não? queria por um operador ternario 
-//			 + "\nAtivo.........: " +  (isAtivo() ? "S" : "N");
-//	}
+	@Override
+	public String toString() {
+		return "ID: " + getId()
+		     + "\nReserva: " + getIdReserva()
+		     + "\nEntrege: " + (isEntrege() ? "Entregue" : "Não entregue"); 
+	}
 }

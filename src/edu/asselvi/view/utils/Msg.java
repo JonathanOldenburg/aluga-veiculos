@@ -20,11 +20,13 @@ public class Msg {
 
     public static int perguntaInt(String mensagem) {
         String userInputStr = JOptionPane.showInputDialog(mensagem);
+        userInputStr = userInputStr.isEmpty() ? "0" : userInputStr;
         return StringUtils.isStrictlyNumeric(userInputStr) ? Integer.parseInt(userInputStr) : perguntaInt(mensagem);
     }
 
     public static double perguntaDouble(String mensagem) {
         String userInputStr = JOptionPane.showInputDialog(mensagem);
+        userInputStr = userInputStr.isEmpty() ? "0" : userInputStr;
         return StringUtils.isStrictlyNumeric(userInputStr) ? Double.parseDouble(userInputStr) : perguntaDouble(mensagem);
     }
 }

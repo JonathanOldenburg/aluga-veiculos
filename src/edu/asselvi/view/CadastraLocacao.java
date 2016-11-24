@@ -1,13 +1,15 @@
 package edu.asselvi.view;
 
+import java.util.List;
+
 import edu.asselvi.bd.BDException;
 import edu.asselvi.model.bean.Locacao;
 import edu.asselvi.model.dao.LocacaoDAO;
-import edu.asselvi.view.interfaces.IPadraoCadastra;
+import edu.asselvi.view.interfaces.IDataHandler;
 import edu.asselvi.view.utils.Menu;
 import edu.asselvi.view.utils.Msg;
 
-public class CadastraLocacao implements IPadraoCadastra {
+public class CadastraLocacao implements IDataHandler {
 
     private static final long serialVersionUID = 7150726174612008790L;
 
@@ -20,7 +22,7 @@ public class CadastraLocacao implements IPadraoCadastra {
             @Override
             public void run() {
                 Locacao locacao = new Locacao();
-                locacao.setId_Reserva(Msg.perguntaInt("Qual o id da reserva?"));
+                locacao.setIdReserva(Msg.perguntaInt("Qual o id da reserva?"));
 
                 try {
                     locacaoDAO.insere(locacao);
@@ -53,6 +55,30 @@ public class CadastraLocacao implements IPadraoCadastra {
             @Override
             public String toString() {
                 return "Excluir locacao";
+            }
+        })
+        .addOption(3, new Runnable() {
+            
+            @Override
+            public void run() {
+                StringBuffer stringBuffer = new StringBuffer();
+                Locacao locacao = new Locacao();
+                locacao.setIdReserva(Msg.perguntaInt("Qual o id da reserva?"));
+                
+                try {
+                    List<Locacao> locacoes = locacaoDAO.consulta(locacao);
+                    for (Locacao locacaoReg : locacoes) {
+                        stringBuffer.append(locacaoReg.toString()+"\n");
+                    }
+                    Msg.informa(stringBuffer.toString());
+                } catch (BDException e) {
+                    Msg.erro(e.getMessage());
+                }
+            }
+            
+            @Override
+            public String toString() {
+                return "Consultar locacao";
             }
         })
         .show();

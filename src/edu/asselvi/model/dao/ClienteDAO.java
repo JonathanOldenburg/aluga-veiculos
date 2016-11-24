@@ -12,7 +12,7 @@ import edu.asselvi.bd.EErrosBD;
 import edu.asselvi.bd.conexao.Conexao;
 import edu.asselvi.model.bean.Cliente;
 
-public class ClienteDAO implements IPadraoDAO {
+public class ClienteDAO implements IPadraoDAO<Cliente> {
 
 	@Override
 	public boolean criaTabela() throws BDException {
@@ -180,6 +180,41 @@ public class ClienteDAO implements IPadraoDAO {
 			Conexao.fechaConexao();
 		}
 	}
+
+    @Override
+    public List<Cliente> consulta(Cliente cliente) throws BDException {
+        Connection conexao = Conexao.getConexao();
+        try {
+            PreparedStatement preparedStatement = conexao.prepareStatement("SELECT * FROM cliente "
+                                                                         + "WHERE id = ? or "
+                                                                         + " cpf = ? or ("
+                                                                         + "    nome like ? and"
+                                                                         + "    endereco like ? and"
+                                                                         + "    telefone like ?"
+                                                                         + ");");
+            preparedStatement.setInt(1, cliente.getId());
+            preparedStatement.setInt(2, cliente.getCpf());
+            preparedStatement.setString(3, "%"+cliente.getNome()+"%");
+            preparedStatement.setString(4, "%"+cliente.getEndereco()+"%");
+            preparedStatement.setString(5, "%"+cliente.getTelefone()+"%");
+            
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            List<Cliente> clientes = new ArrayList<Cliente>();
+            while (rs.next()) {
+                clientes.add(new Cliente(rs.getInt("id"),
+                                         rs.getString("nome"),
+                                         rs.getString("endereco"),
+                                         rs.getInt("cpf"),
+                                         rs.getString("telefone")));
+            }
+            return clientes;
+        } catch (Exception e) {
+            throw new BDException(e.getMessage(), EErrosBD.CONSULTA_DADO);
+        } finally {
+            Conexao.fechaConexao();
+        }
+    }
 
 }
 

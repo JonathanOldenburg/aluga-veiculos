@@ -7,7 +7,7 @@ public class Reserva {
 
 	private Date inicio;
 	private Date fim;
-	private int id_Cliente;
+	private int idCliente;
 	private String dsc_Cliente;
 	private int id_Carro;
 	private String dsc_Carro;
@@ -17,7 +17,7 @@ public class Reserva {
 		setId(id);
 		setInicio(inicio);
 		setFim(fim);
-		setId_Cliente(id_Cliente);
+		setIdCliente(id_Cliente);
 		setCliente(cliente);
 		setReservou(reservou);
 	}
@@ -26,12 +26,12 @@ public class Reserva {
 		this(0, new Date(), new Date(), 0, "Cliente sem nome", 0, "Carro sem nome",false);
 	}
 
-	public int getId_Cliente() {
-		return id_Cliente;
+	public int getIdCliente() {
+		return idCliente;
 	}
 
-	public void setId_Cliente(int id_Cliente) {
-		this.id_Cliente = id_Cliente;
+	public void setIdCliente(int id_Cliente) {
+		this.idCliente = id_Cliente;
 	}
 
 
@@ -75,30 +75,31 @@ public class Reserva {
 		this.reservou = reservou;
 	}
 	
-	public int getId_Carro() {
+	public int getIdCarro() {
 		return id_Carro;
 	}
 	
 
-	public String getDsc_Carro() {
+	public String getDscCarro() {
 		return dsc_Carro;
 	}
 
-	public void setDsc_Carro(String dsc_Carro) {
+	public void setDscCarro(String dsc_Carro) {
 		this.dsc_Carro = dsc_Carro;
 	}
 
 
-	public void setId_Carro(int id_Carro) {
+	public void setIdCarro(int id_Carro) {
 		this.id_Carro = id_Carro;
 	}
 	
 	@Override
 	public String toString() {
-		return "Inicio........: " + getInicio() +
+		return "ID............: " + getId() +
+		     "\nInicio........: " + getInicio() +
 			 "\nFim...........: " + getFim() + 
 			 "\nCliente.......: " + getDsc_Cliente() +
-			 "\nCarro.........: " + getDsc_Carro() +
+			 "\nCarro.........: " + getDscCarro() +
 			 "\nReservou......: " + (isReservou() ? "S" : "N");
 	}
 

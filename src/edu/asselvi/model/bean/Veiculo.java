@@ -3,20 +3,20 @@ package edu.asselvi.model.bean;
 public class Veiculo {
 
 	private int id;
-	private String placa;
-	private String modelo;
 	private int ano;
-	private int id_Cor;	
-	private String cor;
+	private int idCor;	
 	private double diaria;
 	private boolean ativo;
+	private String placa;
+	private String modelo;
+	private String cor;
 
 	public Veiculo(int id, String placa, String modelo, int ano, int id_Cor, String cor, double diaria, boolean ativo){
 		setId(id);
 		setPlaca(placa);
 		setModelo(modelo);
 		setAno(ano);
-		setId_Cor(id_Cor);
+		setIdCor(id_Cor);
 		setCor(cor);
 		setDiaria(diaria);
 		
@@ -39,7 +39,9 @@ public class Veiculo {
 	}
 
 	public void setPlaca(String placa) {
-		this.placa = placa.toUpperCase().substring(0,7);
+	    if (placa != null) {
+	        this.placa = placa.toUpperCase().substring(0,7);
+        }
 	}
 
 	public String getModelo() {
@@ -58,12 +60,12 @@ public class Veiculo {
 		this.ano = ano;
 	}
 
-	public int getId_Cor() {
-		return id_Cor;
+	public int getIdCor() {
+		return idCor;
 	}
 
-	public void setId_Cor(int idCor) {
-		this.id_Cor = idCor;
+	public void setIdCor(int idCor) {
+		this.idCor = idCor;
 	}
 
 	
@@ -93,7 +95,8 @@ public class Veiculo {
 	
 	@Override
 	public String toString() {
-		return "Placa.........: " + getPlaca() 
+		return "ID............:" + getId()
+		     + "\nPlaca.........: " + getPlaca() 
 			 + "\nModelo........: " + getModelo() 
 			 + "\nAno...........: " + getAno()
 			 + "\nCor...........: " + getCor()

@@ -12,7 +12,7 @@ import edu.asselvi.bd.EErrosBD;
 import edu.asselvi.bd.conexao.Conexao;
 import edu.asselvi.model.bean.Veiculo;
 
-public class VeiculoDAO implements IPadraoDAO {
+public class VeiculoDAO implements IPadraoDAO<Veiculo> {
 
 	@Override
 	public boolean criaTabela() throws BDException {
@@ -60,7 +60,7 @@ public class VeiculoDAO implements IPadraoDAO {
 			pst.setString(2, veiculo.getPlaca());
 			pst.setString(3, veiculo.getModelo());
 			pst.setInt(4, veiculo.getAno());
-			pst.setInt(5, veiculo.getId_Cor());
+			pst.setInt(5, veiculo.getIdCor());
 			pst.setDouble(6, veiculo.getDiaria());
 			pst.setString(7, veiculo.isAtivo() ? "1" : "0");
 			return pst.executeUpdate() > 0;
@@ -80,7 +80,7 @@ public class VeiculoDAO implements IPadraoDAO {
 				pst.setString(2, veiculo.getPlaca());
 				pst.setString(3, veiculo.getModelo());
 				pst.setInt(4, veiculo.getAno());
-				pst.setInt(5, veiculo.getId_Cor());
+				pst.setInt(5, veiculo.getIdCor());
 				pst.setDouble(6, veiculo.getDiaria());
 				pst.setString(7, veiculo.isAtivo() ? "1" : "0");
 				pst.executeUpdate();
@@ -103,7 +103,7 @@ public class VeiculoDAO implements IPadraoDAO {
 				pst.setString(2, veiculo.getPlaca());
 				pst.setString(3, veiculo.getModelo());
 				pst.setInt(4, veiculo.getAno());
-				pst.setInt(5, veiculo.getId_Cor());
+				pst.setInt(5, veiculo.getIdCor());
 				pst.setDouble(6, veiculo.getDiaria());
 				pst.setString(7, veiculo.isAtivo() ? "1" : "0");
 				pst.executeUpdate();
@@ -175,7 +175,7 @@ public class VeiculoDAO implements IPadraoDAO {
 			pst.setString(1, veiculo.getPlaca());
 			pst.setString(2, veiculo.getModelo());
 			pst.setInt(3, veiculo.getAno());
-			pst.setInt(4, veiculo.getId_Cor());
+			pst.setInt(4, veiculo.getIdCor());
 			pst.setDouble(5, veiculo.getDiaria());
 			pst.setString(5, veiculo.isAtivo() ? "1" : "0");
 			return pst.executeUpdate() > 0;
@@ -198,5 +198,44 @@ public class VeiculoDAO implements IPadraoDAO {
 			Conexao.fechaConexao();
 		}
 	}
+
+    @Override
+    public List<Veiculo> consulta(Veiculo veiculo) throws BDException {
+        Connection conexao = Conexao.getConexao();
+        try {
+            PreparedStatement st = conexao.prepareStatement("SELECT v.id, v.placa, v.modelo, v.ano, v.id_cor, v.diaria, v.ativo, c.dsc_cor "
+                                                          + "FROM veiculo v, cor c "
+                                                          + "WHERE v.id_cor = c.id AND "
+                                                          + "v.ativo = '1' AND ("
+                                                          + "   v.id = ? OR "
+                                                          + "   v.ano = ? OR "
+                                                          + "   v.diaria = ? OR ("
+                                                          + "       v.placa like ? AND "
+                                                          + "       v.modelo like ?));");
+            st.setInt(1, veiculo.getId());
+            st.setInt(2, veiculo.getAno());
+            st.setDouble(3, veiculo.getDiaria());
+            st.setString(4, veiculo.getPlaca());
+            st.setString(5, veiculo.getCor());
+            
+            ResultSet rs = st.executeQuery();
+            List<Veiculo> veiculos = new ArrayList<Veiculo>();
+            while (rs.next()) {
+                veiculos.add(new Veiculo(rs.getInt("id"),
+                                        rs.getString("placa"),
+                                        rs.getString("modelo"),
+                                        rs.getInt("ano"),
+                                        rs.getInt("id_cor"),
+                                        rs.getString("dsc_cor"),
+                                        rs.getDouble("diaria"),
+                                        (rs.getString("ativo") == "1")));
+            }
+            return veiculos;
+        } catch (Exception e) {
+            throw new BDException(e.getMessage(), EErrosBD.CONSULTA_DADO);
+        } finally {
+            Conexao.fechaConexao();
+        }
+    }
 
 }

@@ -10,8 +10,10 @@ public class Principal {
         Menu menu = new Menu();
         try {
             menu.addOption(1, new CadastraCliente());
-            menu.addOption(2, new CadastraCor());
-            menu.addOption(3, new CadastraLocacao());
+            menu.addOption(2, new CadastraVeiculo());
+            menu.addOption(3, new CadastraReserva());
+            menu.addOption(4, new CadastraLocacao());
+            menu.addOption(5, new CadastraCor());
         } catch (DuplicateMenuEntryException e) {
             Msg.erro(e.getMessage());
         }
