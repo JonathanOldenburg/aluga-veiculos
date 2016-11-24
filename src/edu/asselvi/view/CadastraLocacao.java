@@ -62,11 +62,9 @@ public class CadastraLocacao implements IDataHandler {
             @Override
             public void run() {
                 StringBuffer stringBuffer = new StringBuffer();
-                Locacao locacao = new Locacao();
-                locacao.setIdReserva(Msg.perguntaInt("Qual o id da reserva?"));
                 
                 try {
-                    List<Locacao> locacoes = locacaoDAO.consulta(locacao);
+                    List<Locacao> locacoes = locacaoDAO.consulta();
                     for (Locacao locacaoReg : locacoes) {
                         stringBuffer.append(locacaoReg.toString()+"\n");
                     }

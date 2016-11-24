@@ -39,6 +39,7 @@ public class Locacao {
 	public String toString() {
 		return "ID: " + getId()
 		     + "\nReserva: " + getIdReserva()
-		     + "\nEntrege: " + (isEntrege() ? "Entregue" : "Não entregue"); 
+		     + "\nEntrege: " + (isEntrege() ? "Entregue" : "Não entregue")
+			 + "\n------------------------------------";
 	}
 }

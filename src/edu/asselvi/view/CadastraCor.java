@@ -59,12 +59,10 @@ public class CadastraCor implements IDataHandler {
             
             @Override
             public void run() {
-                Cor cor = new Cor();
                 StringBuffer stringBuffer = new StringBuffer();
-                cor.setDsc_cor(Msg.perguntaStr("Digite a descrição da cor:"));
                 
                 try {
-                    List<Cor> cores = corDAO.consulta(cor);
+                    List<Cor> cores = corDAO.consulta();
                     for (Cor corReg : cores) {
                         stringBuffer.append(corReg.toString()+"\n");
                     }

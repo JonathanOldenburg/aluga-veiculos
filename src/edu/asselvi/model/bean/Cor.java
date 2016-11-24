@@ -30,6 +30,7 @@ public class Cor {
 	@Override
 	public String toString() {
 	    return "ID : "+getId()+"\n"
-	            + "Cor : "+getDscCor();
+	            + "Cor : "+getDscCor()
+				 + "\n------------------------------------";
 	}
 }

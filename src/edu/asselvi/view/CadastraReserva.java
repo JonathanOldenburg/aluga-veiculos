@@ -77,22 +77,9 @@ public class CadastraReserva implements IDataHandler {
             @Override
             public void run() {
                 StringBuffer stringBuffer = new StringBuffer();
-                Reserva reserva = new Reserva();
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                java.sql.Date dataFim = null;
-                java.sql.Date dataInicio = null;
                 
                 try {
-                    dataInicio = new java.sql.Date(format.parse(Msg.perguntaStr("Digite a data de inicio")).getTime());
-                    dataFim = new java.sql.Date(format.parse(Msg.perguntaStr("Digite a data final")).getTime());
-                } catch (ParseException e1) {
-                    Msg.erro("Favor informar uma data válida.");
-                }
-                reserva.setFim(dataFim);
-                reserva.setInicio(dataInicio);
-                
-                try {
-                    List<Reserva> reservas = reservaDAO.consulta(reserva);
+                    List<Reserva> reservas = reservaDAO.consulta();
                     for (Reserva reservaReg : reservas) {
                         stringBuffer.append(reservaReg.toString()+"\n");
                     }

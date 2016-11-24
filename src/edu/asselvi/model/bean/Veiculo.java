@@ -101,7 +101,8 @@ public class Veiculo {
 			 + "\nAno...........: " + getAno()
 			 + "\nCor...........: " + getCor()
 			 + "\nDiaria........: " + getDiaria()
-			 + "\nAtivo.........: " +  (isAtivo() ? "S" : "N");
+			 + "\nAtivo.........: " +  (isAtivo() ? "S" : "N")
+			 + "\n------------------------------------";
 	}
 
 }

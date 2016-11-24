@@ -70,18 +70,9 @@ public class CadastraVeiculo implements IDataHandler {
             @Override
             public void run() {
                 StringBuffer stringBuffer = new StringBuffer();
-                Veiculo veiculo = new Veiculo();
-                String placa = Msg.perguntaStr("Digite a placa:");
-                veiculo.setPlaca(placa.isEmpty() ? null : placa);
-                veiculo.setModelo(Msg.perguntaStr("Digite o modelo:"));
-                veiculo.setAno(Msg.perguntaInt("Digite o ano"));
-                veiculo.setIdCor(Msg.perguntaInt(CadastraCor.getListaFormadataCores()+"\nInforme o id da cor desejada :"));
-                
-                veiculo.setDiaria((Msg.perguntaDouble("Digite a diaria")));
-                veiculo.setAtivo(true);
-                
+
                 try {
-                    List<Veiculo> veiculos = veiculoDAO.consulta(veiculo);
+                    List<Veiculo> veiculos = veiculoDAO.consulta();
                     for (Veiculo veiculoReg : veiculos) {
                         stringBuffer.append(veiculoReg.toString()+"\n");
                     }

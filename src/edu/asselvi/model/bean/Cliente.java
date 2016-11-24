@@ -77,7 +77,8 @@ public class Cliente {
 		     + "\nNome..........: " + getNome() 
 			 + "\nEndereço......: " + getEndereco() 
 			 + "\nCPF...........: " + getCpf()
-			 + "\nTelefone......: " + getTelefone();
+			 + "\nTelefone......: " + getTelefone()
+			 + "\n------------------------------------";
 	}
 
 }

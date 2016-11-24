@@ -100,7 +100,8 @@ public class Reserva {
 			 "\nFim...........: " + getFim() + 
 			 "\nCliente.......: " + getDsc_Cliente() +
 			 "\nCarro.........: " + getDscCarro() +
-			 "\nReservou......: " + (isReservou() ? "S" : "N");
+			 "\nReservou......: " + (isReservou() ? "S" : "N")
+			 + "\n------------------------------------";
 	}
 
 }

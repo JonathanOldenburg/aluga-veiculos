@@ -28,7 +28,8 @@ public class VeiculoUtilitario extends Veiculo{
 			 + "Ano...........: " + getAno()
 			 + "Cor...........: " + getCor()
 			 + "Diaria........: " + getDiaria()
-			 + "Carga Máxima..: " + getCargaMaxima();
+			 + "Carga Máxima..: " + getCargaMaxima()
+			 + "\n------------------------------------";
 	}
 
 }

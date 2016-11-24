@@ -28,7 +28,8 @@ public class VeiculoEsportivo extends Veiculo {
 			 + "Ano...........: " + getAno()
 			 + "Cor...........: " + getCor()
 			 + "Diaria........: " + getDiaria()
-			 + "Aceleração.... :" + getAceleracao();
+			 + "Aceleração.... :" + getAceleracao()
+			 + "\n------------------------------------";
 	}
 
 }

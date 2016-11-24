@@ -59,10 +59,9 @@ public class CadastraCliente implements IDataHandler {
             
             @Override
             public void run() {
-                Cliente cliente = obterClienteUsuario();
                 StringBuffer stringBuffer = new StringBuffer();
                 try {
-                    List<Cliente> clientes = clienteDAO.consulta(cliente);
+                    List<Cliente> clientes = clienteDAO.consulta();
                     for (Cliente clienteReg : clientes) {
                         stringBuffer.append(clienteReg.toString()+"\n");
                     }
